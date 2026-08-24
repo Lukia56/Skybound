@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
             _isJumping = true;
         }
 
-        if (_jumpInput.WasReleasedThisFrame() && _isJumping)
+        if (_jumpInput.WasReleasedThisFrame() && _isJumping && _myRigidbody.linearVelocityY > 0.0f)
         {
             _myRigidbody.linearVelocityY = 0.0f;
             _force.y = _JUMP_CANCEL_THRESHOLD;
