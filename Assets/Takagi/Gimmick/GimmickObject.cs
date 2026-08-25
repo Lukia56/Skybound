@@ -6,6 +6,7 @@ using UnityEngine;
 public class GimmickObject : MonoBehaviour
 {
     [SerializeField] public GimmickBase gimmick;
+    [SerializeField] private GimmickImage _image=null;
     [SerializeField] private eGimmick _gimmickType=eGimmick.Invalid;
     struct HitCharacter
     {
@@ -45,19 +46,28 @@ public class GimmickObject : MonoBehaviour
     /// <param name="obj"></param>
     private void CheckCharacterEnter(GameObject obj)
     {
+        // すでに配列にあればアクションを呼ぶ
+        for (int i = 0; i < _hitCharacters.Count; i++){
+            if (obj == _hitCharacters[i].Object){
+                // キャラクターを取得
+                Player player = _hitCharacters[i].character;
+                // アクションの実行
+                Action(player, eHitType.Enter);
+                return;
+            }
+        }
         // オブジェクトがキャラクタークラスを所持しているかどうかを取得
         Player isPlayer = obj.GetComponent<Player>();
-        if (isPlayer!=null)
-        {
+        if (isPlayer!=null){
             // 所持していれば効果発動
             Action(isPlayer, eHitType.Enter);
+            // 配列に存在していなければ
             // 接触したキャラクター配列に追加
             HitCharacter hitCharacter;
             hitCharacter.character = isPlayer;
             hitCharacter.Object= obj;
             _hitCharacters.Add(hitCharacter);
         }
-
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -109,9 +119,10 @@ public class GimmickObject : MonoBehaviour
     }
     private void Action(Player character,eHitType hitType)
     {
-        Debug.Log("効果発動"+hitType);
-        gimmick.SetGimmickObject(this);
-        gimmick.ToPlayerAction(character, hitType);
-        gimmick.ToObjectAction(this);
+       GimmickManager.instance.Action(character,_gimmickType,this,hitType);
+    }
+    public void StartEffect()
+    {
+        if (_image) _image.StartActionEffect();
     }
 }

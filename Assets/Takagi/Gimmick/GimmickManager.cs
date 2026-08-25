@@ -20,35 +20,42 @@ public class GimmickManager
     {
         int gimmickMax = (int)eGimmick.Max;
         gimmickList = new List<GimmickBase>(gimmickMax);
-    
+        for(int i = 0; i < gimmickMax; i++) {
+            // 指定したギミックを生成
+            switch ((eGimmick)i)
+            {
+                case eGimmick.Spike:
+                    gimmickList.Add(new Spike());
+                    break;
+                case eGimmick.Spring:
+                    gimmickList.Add(new Spring());
+                    break;
+                case eGimmick.Gem:
+                    gimmickList.Add(new Gem());
+                    break;
+                default:
+                    break;
+            }
+        }
     }
     public GimmickBase CreateGimmick(eGimmick gimmickType)
     {
         // ギミックの番号を取得
         int gimmickID = (int)gimmickType;
         // 指定ギミックの内、未使用のものがあれば使用状態にして返す
-        if(gimmickList.Count>0)
-        for (int i = 0; i < gimmickList.Count; i++)
+        if (gimmickID < 0 || gimmickID >= gimmickList.Count)
         {
-                return gimmickList[i]; 
+            return null;
         }
-        // 未使用のものがなければ新しく生成して返す
-        GimmickBase gimmick = null;
-        // 指定したギミックを生成
-        switch (gimmickType)
-        {
-            case eGimmick.Spike:
-                gimmick = new Spike();
-                break;
-            case eGimmick.Spring:
-                gimmick = new Spring();
-                break;
-            case eGimmick.Gem:
-                gimmick = new Gem();
-                break;
-            default:
-                break;
-        }
-        return gimmick;
+        return gimmickList[gimmickID];
+    }
+    public void Action(Player character,eGimmick gimmickType,GimmickObject gimmickObj, eHitType hitType)
+    {
+        Debug.Log("効果発動" + hitType);
+        int gimmickID = (int)gimmickType;
+        GimmickBase gimmick = gimmickList[gimmickID];
+        gimmick.SetGimmickObject(gimmickObj);
+        gimmick.ToPlayerAction(character, hitType);
+        gimmick.ToObjectAction(gimmickObj);
     }
 }
