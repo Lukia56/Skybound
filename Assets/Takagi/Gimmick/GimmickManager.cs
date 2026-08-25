@@ -49,6 +49,9 @@ public class GimmickManager
             case eGimmick.Spike:
                 gimmick = new Spike();
                 break;
+            case eGimmick.Spring:
+                gimmick = new Spring();
+                break;
             case eGimmick.Gem:
                 gimmick = new Gem();
                 break;
