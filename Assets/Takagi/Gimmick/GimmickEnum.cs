@@ -19,5 +19,6 @@ public enum eGimmick
     Gem,        // ジェム
     Fall,       // 落下ブロック
     HideBlock,  // 崩れる足場
+    StageClear,  // ゲームクリア
     Max,
 }

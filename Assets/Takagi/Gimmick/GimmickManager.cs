@@ -33,7 +33,11 @@ public class GimmickManager
                 case eGimmick.Gem:
                     gimmickList.Add(new Gem());
                     break;
+                case eGimmick.StageClear:
+                    gimmickList.Add(new StageClear());
+                    break;
                 default:
+                    gimmickList.Add(null);
                     break;
             }
         }
@@ -55,7 +59,8 @@ public class GimmickManager
         int gimmickID = (int)gimmickType;
         GimmickBase gimmick = gimmickList[gimmickID];
         gimmick.SetGimmickObject(gimmickObj);
-        gimmick.ToPlayerAction(character, hitType);
-        gimmick.ToObjectAction(gimmickObj);
+        gimmick.ToCharacterAction(character, hitType);
+        gimmick.ToObjectAction(gimmickObj,hitType);
+        gimmick.OtherAction(hitType);
     }
 }

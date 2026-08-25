@@ -5,15 +5,24 @@ using UnityEngine;
 
 public class GimmickObject : MonoBehaviour
 {
-    [SerializeField] public GimmickBase gimmick;
+    /// <summary>
+    /// 効果発動時に見た目上でのみ動くもの　(基本はnullで良い)
+    /// </summary>
     [SerializeField] private GimmickImage _image=null;
+    /// <summary>
+    /// 自身のギミックの種類
+    /// </summary>
     [SerializeField] private eGimmick _gimmickType=eGimmick.Invalid;
+    /// <summary>
+    /// 当たったキャラクターオブジェクトの情報
+    /// </summary>
     struct HitCharacter
     {
+        // キャラクターとしての情報
         public Player character;
+        // オブジェクトとしての情報
         public GameObject Object;
     }
-    [SerializeField] bool isHit = false;
 
     /// <summary>
     /// 当たったキャラクターの配列
@@ -23,15 +32,6 @@ public class GimmickObject : MonoBehaviour
     /// 当たっているオブジェクト配列
     /// </summary>
     private List<GameObject> _hitStayObjects=new List<GameObject>();
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        if (gimmick == null)
-        {
-            gimmick = GimmickManager.instance.CreateGimmick(_gimmickType);
-        }
-    }
-   
     private void OnCollisionEnter2D(Collision2D collision)
     {
         CheckCharacterEnter(collision.gameObject);
@@ -121,6 +121,9 @@ public class GimmickObject : MonoBehaviour
     {
        GimmickManager.instance.Action(character,_gimmickType,this,hitType);
     }
+    /// <summary>
+    /// 自身のギミックが見た目上動く場合の動作開始処理
+    /// </summary>
     public void StartEffect()
     {
         if (_image) _image.StartActionEffect();

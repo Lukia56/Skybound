@@ -2,7 +2,7 @@
 
 public class Gem : GimmickBase
 {
-    public override void ToPlayerAction(Player character, eHitType hitType)
+    public override void ToCharacterAction(Player character, eHitType hitType)
     {
         if (hitType == eHitType.Enter)
         {

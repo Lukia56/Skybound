@@ -3,7 +3,7 @@ using UnityEngine;
 public class Spring :GimmickBase
 {
     const float _PLAYER_FORCE_POWER = 150;
-    public override void ToPlayerAction(Player character, eHitType hitType)
+    public override void ToCharacterAction(Player character, eHitType hitType)
     {
         if (_gimmickObj == null) return;
         if (hitType != eHitType.Enter) return;
