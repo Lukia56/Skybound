@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
 
     public void Dead()
     {
-
+        Debug.Log("Player // 死亡処理が呼ばれました");
     }
 
     public void SetForce(float force, Vector2 normal)
@@ -75,7 +75,7 @@ public class Player : MonoBehaviour
     bool CheckGround()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1.0f, _groundLayerMask);
-        
+
         return hit.collider != null;
     }
 }
