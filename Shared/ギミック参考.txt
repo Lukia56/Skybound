@@ -2,45 +2,60 @@
 
 ギミック一覧
 
-☑トゲ(Spike) (Spikes, Spinner)
+☑トゲ(Spike) (Spikes, Spinner) 担当 : 髙木
+
 　触れるとマデリンがやられる。横から触れてもダメ。
 　壁や床から生えているトゲや宙に浮かぶ玉状のトゲがあり、チャプターごとに様々な見た目で置かれている。
 　玉状のトゲは見た目よりも判定が小さい。特に縦方向は、マデリンの判定の小ささもあって、かすっても大丈夫。
 　https://youtu.be/cbtYApvvGgc?si=1wCRYI-_GjATfuPy&t=168
 　https://youtu.be/cbtYApvvGgc?si=B6FwIsMDuLcWeGiq&t=2431
 
-☑ジャンプ台／バネ(Spring)
+
+☑ジャンプ台／バネ(Spring) 担当 : 髙木
+
 　触れると上や横へ大きく跳ね飛ばされる。
 　触り方・ジャンプ入力に関わらず、跳び方は一定。軌道調節は、触る位置と跳んだあとの動きで。
 　跳ぶときにはダッシュが回復し、跳んだ直後からダッシュが使える。タイミングを狙うときに。
 　https://youtu.be/cbtYApvvGgc?si=LLJuUgsd7gJJvl-T&t=189
 
-☑ダイヤ／クリスタル(Diamond/Gem) (Refill)
+
+☑ダイヤ／クリスタル(Diamond/Gem) (Refill) 担当 : 
+
 　ダッシュを消費しているときに触れると、砕いてダッシュを回復する。
 　スタミナを回復する効果もあり*2、ダッシュ非消費時でもスタミナ切れなら砕ける。
 　見た目より判定が広く、やや通り過ぎてからダッシュを使っても砕ける。
 　砕いたあと、少し経つと再生成されるものと、エリアの再読み込みまで消えたままのものがある。後者は砕いたあとの白枠がない。
 　https://youtu.be/cbtYApvvGgc?si=1wCRYI-_GjATfuPy&t=168
 
-☑くずれる足場(Disappearing Platforms) (Crumble Block)
+
+☑くずれる足場(Disappearing Platforms) (Crumble Block) 担当 : 
+
 　マデリンが上に乗ったり横にしがみつくと崩れて消えるブロック。少し経つと再生成される。
 　https://youtu.be/cbtYApvvGgc?si=aEN3jOJpxWFXGsAq&t=243
 
-☑落下ブロック(Falling Platform) (Falling Block)
+
+☑落下ブロック(Falling Platform) (Falling Block) 担当 : 
+
 　上に乗ったり横にしがみつくと落ちていくブロック。ときには落下先で利用せねばならないことも。
 　https://youtu.be/cbtYApvvGgc?si=iNVR_pKZa3kU_hFw&t=254
 
-☑点滅ブロック (Cassette Block)
+
+☑点滅ブロック (Cassette Block) 担当 : 
+
 　赤・青などの色に分かれており、曲のテンポに合わせて定まった周期で実体化するブロック。
 　マデリンと重なっている場合は離れるまで実体化しない。
 　テープカセットのあるエリア・B面の最後に置かれている。
 　https://youtu.be/spz6plb_oUc?si=FN80qgPGMaBWZ2U4&t=35
 
-(☑)バデリンチェイス(Badeline Chase)
+
+(☑)バデリンチェイス(Badeline Chase) 担当 : 
+
 　マデリンの動きを3秒遅れてたどる。触れるとこちらがやられてしまうので、要所で止まるなど制御すると良い。
 　https://youtu.be/cbtYApvvGgc?si=W3Mr48LQRBmzTZWE&t=541
 
-☑フグ／ブローフィッシュ (Puffer)
+
+☑フグ／ブローフィッシュ (Puffer) 担当 : 
+
 　上から踏むとフグを下に動かしつつ跳ね、横～下から触れると水平やや上に勢いよく飛ばされる*11。
 　いずれでもダッシュが回復する。踏みつけの跳ね高度は[ジャンプ]入力で調整可。
 　フグは"リフト"や"ダッシュブロック"で押しやることができ、
