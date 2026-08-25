@@ -65,14 +65,18 @@ public class Player : MonoBehaviour
 
         _myRigidbody.linearVelocityY = 0.0f;
         _force = normal * force;
+
+        Debug.Log("Player // SetForce called");
     }
 
     public void RechargeDash()
     {
+        _dashCount = _MAX_DASH_NUM;
 
+        Debug.Log("Player // RechargeDash called");
     }
 
-    bool CheckGround()
+    private bool CheckGround()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1.0f, _groundLayerMask);
 
