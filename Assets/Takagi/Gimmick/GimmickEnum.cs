@@ -16,6 +16,8 @@ public enum eGimmick
     Invalid=-1,
     Spike,      // トゲ
     Spring,     // バネ
-    Gem,     // ジェム
+    Gem,        // ジェム
+    Fall,       // 落下ブロック
+    HideBlock,  // 崩れる足場
     Max,
 }
