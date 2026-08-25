@@ -168,14 +168,14 @@ public class Player : MonoBehaviour
 
         _velocity = normal * force;
 
-        //Debug.Log("Player // SetForce called");
+        Debug.Log("Player // SetForce called");
     }
 
     public void RechargeDash()
     {
         _dashCount = _maxDashNum;
 
-        //Debug.Log("Player // RechargeDash called");
+        Debug.Log("Player // RechargeDash called");
     }
 
     private bool CheckGround()
