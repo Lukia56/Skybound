@@ -57,6 +57,10 @@ public class Player : MonoBehaviour
     public void Dead()
     {
 
+
+    public void Dead()
+    {
+        Debug.Log("Player // 死亡処理が呼ばれました");
     }
 
     public void SetForce(float force, Vector2 normal)
