@@ -16,6 +16,11 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _dashTimer = 0.0f;
 
+    [SerializeField]
+    private float _checkGroundRadius = 0.0f;
+    [SerializeField]
+    private float _checkGroundDistance = 0.0f;
+
     private Rigidbody2D _myRigidbody = null;
 
     private InputAction _moveInput = null;
@@ -47,9 +52,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(Mathf.Abs(_force.x));
-        Debug.Log(Mathf.Abs(_force.y / 100.0f) + 1.0f);
-        _myRigidbody.linearVelocityX += (_force.x * (Mathf.Abs(_force.y / 300.0f) + 1.0f)) / _myRigidbody.mass * Time.fixedDeltaTime;
+        _myRigidbody.linearVelocityX += _force.x / _myRigidbody.mass * Time.fixedDeltaTime;
         _myRigidbody.linearVelocityY += _force.y / _myRigidbody.mass * Time.fixedDeltaTime;
     }
 
@@ -68,10 +71,10 @@ public class Player : MonoBehaviour
 
             RechargeDash();
 
-            //if (_force.y < 0.0f)
-            //{
-            //    _force.y = 0.0f;
-            //}
+            if (_force.y < 0.0f)
+            {
+                _force.y = 0.0f;
+            }
         }
         else
         {
@@ -155,8 +158,14 @@ public class Player : MonoBehaviour
 
     private bool CheckGround()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1.0f, _groundLayerMask);
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, _checkGroundRadius, Vector2.down, _checkGroundDistance, _groundLayerMask);
 
         return hit.collider != null;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position + _checkGroundDistance * Vector3.down, _checkGroundRadius);
     }
 }
