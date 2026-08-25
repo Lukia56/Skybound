@@ -17,7 +17,6 @@ public class GimmickManager
     public class GimmickData
     {
         public GimmickData(GimmickBase gimmick) { this.gimmick = gimmick; }
-        public GimmickData() { }
         public bool _isUse = false;
         public GimmickBase gimmick { get; private set; } = null;
     }
@@ -54,6 +53,9 @@ public class GimmickManager
             case eGimmick.Spike:
                 gimmick = new Spike();
                 break;
+            case eGimmick.Gem:
+                gimmick = new Gem();
+                break;
             default:
                 break;
         }
@@ -65,6 +67,16 @@ public class GimmickManager
             gimmickList[gimmickID].Add(data);
         }
         return gimmick;
+    }
+    public void UnUseGimmick(GimmickBase gimmick)
+    {
+
+        for (int i = 0; i < gimmickList.Count; i++)
+            for (int j = 0; j < gimmickList[i].Count; j++)
+            {
+                if (gimmickList[i][j].gimmick != gimmick) continue;
+                gimmickList[i][j]._isUse = false;
+            }
     }
 
 }
