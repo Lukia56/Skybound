@@ -9,18 +9,30 @@ public class Player : MonoBehaviour
 
     private bool _isJumping;
 
+    [SerializeField]
+    private int _dashCount = 0;
+
+    // ダッシュ終了までのタイマー
+    [SerializeField]
+    private float _dashTimer = 0.0f;
+
     private Rigidbody2D _myRigidbody = null;
 
     private InputAction _moveInput = null;
     private InputAction _jumpInput = null;
+    private InputAction _dashInput = null;
 
     [SerializeField]
     private LayerMask _groundLayerMask;
 
-    private const float _MOVE_FORCE = 10.0f;
+    private const float _MOVE_FORCE = 200.0f;
     private const float _JUMP_FORCE = 300.0f;
 
     private const float _JUMP_CANCEL_THRESHOLD = 20.0f;
+
+    private const int _MAX_DASH_NUM = 1;
+    private const float _DASH_FORCE = 500.0f;
+    private const float _DASH_TIME = 0.35f;
 
     private void Start()
     {
