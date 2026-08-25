@@ -1,13 +1,11 @@
-using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.U2D.Animation;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    private Vector3 _force;
+    private Vector2 _force;
 
     private bool _isJumping;
 
@@ -35,7 +33,7 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         _myRigidbody.AddForce(_force);
-        _force = Vector3.zero;
+        _force = Vector2.zero;
     }
 
     private void Update()
@@ -44,7 +42,7 @@ public class Player : MonoBehaviour
 
         if (_jumpInput.WasPerformedThisFrame() && CheckGround())
         {
-            JumpUp(_JUMP_FORCE);
+            SetForce(_JUMP_FORCE, Vector2.up);
 
             _isJumping = true;
         }
@@ -61,10 +59,12 @@ public class Player : MonoBehaviour
 
     }
 
-    public void JumpUp(float force)
+    public void SetForce(float force, Vector2 normal)
     {
+        Assert.AreApproximatelyEqual(1.0f, normal.sqrMagnitude);
+
         _myRigidbody.linearVelocityY = 0.0f;
-        _force.y = force;
+        _force = normal * force;
     }
 
     public void RechargeDash()
