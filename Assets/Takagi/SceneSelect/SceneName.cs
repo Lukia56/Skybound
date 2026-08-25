@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class SceneName
 {
-    public static readonly string _SCENE_SELECTSCENE = "takagi Scene";
-    public static readonly string[] _SCENE_STAGE =new string[]
+    public static readonly string SCENE_SELECTSCENE = "takagi Scene";
+    public static readonly string[] SCENE_STAGE =new string[]
     {
         "Stage1",
         "Stage2",
