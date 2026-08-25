@@ -4,9 +4,32 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField]
-    private Vector2 _force;
+    [Header("Param")]
 
+    [SerializeField]
+    private float _moveForce = 0.0f;
+    [SerializeField]
+    private float _jumpForce = 0.0f;
+
+    [SerializeField]
+    private float _minVelocityY = 0.0f;
+
+    [SerializeField]
+    private float _jumpCancelThreshold = 0.0f;
+
+    [SerializeField]
+    private int _maxDashNum = 0;
+    [SerializeField]
+    private float _dashForce = 0.0f;
+    [SerializeField]
+    private float _dashTime = 0.0f;
+
+    [Header("Member")]
+
+    [SerializeField]
+    private Vector2 _velocity;
+
+    [SerializeField]
     private bool _isJumping;
 
     [SerializeField]
@@ -15,6 +38,8 @@ public class Player : MonoBehaviour
     // ダッシュ終了までのタイマー
     [SerializeField]
     private float _dashTimer = 0.0f;
+
+    private bool _onGround = false;
 
     [SerializeField]
     private float _checkGroundRadius = 0.0f;
@@ -30,17 +55,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     private LayerMask _groundLayerMask;
 
-    private const float _MOVE_FORCE = 100.0f;
-    private const float _JUMP_FORCE = 300.0f;
-
-    private const float _MIN_VELOCITY_Y = -400.0f;
-
-    private const float _JUMP_CANCEL_THRESHOLD = 20.0f;
-
-    private const int _MAX_DASH_NUM = 1;
-    private const float _DASH_FORCE = 200.0f;
-    private const float _DASH_TIME = 0.35f;
-
     private void Start()
     {
         _myRigidbody = GetComponent<Rigidbody2D>();
@@ -52,56 +66,64 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _myRigidbody.linearVelocityX += _force.x / _myRigidbody.mass * Time.fixedDeltaTime;
-        _myRigidbody.linearVelocityY += _force.y / _myRigidbody.mass * Time.fixedDeltaTime;
+        _myRigidbody.linearVelocityX += _velocity.x / _myRigidbody.mass * Time.fixedDeltaTime;
+        _myRigidbody.linearVelocityY += _velocity.y / _myRigidbody.mass * Time.fixedDeltaTime;
+
+        _onGround = CheckGround();
+
+        if (_onGround)
+        {
+            // 接地時には垂直速度をリセットする
+            if (_velocity.y < 0.0f)
+            {
+                _velocity.y = 0.0f;
+                _isJumping = false;
+            }
+        }
+        else
+        {
+            // ダッシュ中でなければ重力の影響を受ける
+            if (!IsDashing())
+            {
+                _velocity.y += Physics2D.gravity.y;
+            }
+        }
+
+        _velocity.y = Mathf.Max(_velocity.y, _minVelocityY);
     }
 
     private void Update()
     {
         Vector2 moveDir = _moveInput.ReadValue<Vector2>();
 
+        // ダッシュ中でなければ水平操作を行う
         if (!IsDashing())
         {
-            _force.x = _MOVE_FORCE * moveDir.x;
+            _velocity.x = _moveForce * moveDir.x;
         }
 
-        if (CheckGround())
+        if (_onGround)
         {
-            _isJumping = false;
-
             RechargeDash();
-
-            if (_force.y < 0.0f)
-            {
-                _force.y = 0.0f;
-            }
-        }
-        else
-        {
-            if (!IsDashing())
-                _force.y -= 9.81f;
         }
 
         JumpProcess();
 
         DashProcess();
-
-        _force.y = Mathf.Max(_force.y, _MIN_VELOCITY_Y);
     }
 
     private void JumpProcess()
     {
-        if (_jumpInput.WasPerformedThisFrame() && CheckGround())
+        if (_jumpInput.WasPressedThisFrame() && _onGround)
         {
-            SetForce(_JUMP_FORCE, Vector2.up);
+            SetForce(_jumpForce, Vector2.up);
 
             _isJumping = true;
         }
 
-        if (_jumpInput.WasReleasedThisFrame() && _isJumping && _myRigidbody.linearVelocityY > 0.0f)
+        if (_jumpInput.WasReleasedThisFrame() && _isJumping && _velocity.y > _jumpCancelThreshold)
         {
-            _myRigidbody.linearVelocityY = 0.0f;
-            _force.y = _JUMP_CANCEL_THRESHOLD;
+            _velocity.y = 0;
             _isJumping = false;
         }
     }
@@ -110,13 +132,13 @@ public class Player : MonoBehaviour
     {
         Vector2 moveDir = _moveInput.ReadValue<Vector2>();
 
-        if (_dashInput.WasPerformedThisFrame() && moveDir != Vector2.zero && CanDash())
+        if (_dashInput.WasPressedThisFrame() && moveDir != Vector2.zero && CanDash())
         {
-            SetForce(_DASH_FORCE, moveDir);
+            SetForce(_dashForce, moveDir);
 
             _dashCount--;
 
-            _dashTimer = _DASH_TIME;
+            _dashTimer = _dashTime;
         }
 
         if (IsDashing())
@@ -144,16 +166,16 @@ public class Player : MonoBehaviour
     {
         Assert.AreApproximatelyEqual(1.0f, normal.sqrMagnitude);
 
-        _force = normal * force;
+        _velocity = normal * force;
 
-        Debug.Log("Player // SetForce called");
+        //Debug.Log("Player // SetForce called");
     }
 
     public void RechargeDash()
     {
-        _dashCount = _MAX_DASH_NUM;
+        _dashCount = _maxDashNum;
 
-        Debug.Log("Player // RechargeDash called");
+        //Debug.Log("Player // RechargeDash called");
     }
 
     private bool CheckGround()
