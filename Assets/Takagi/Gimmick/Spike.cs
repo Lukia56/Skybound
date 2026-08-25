@@ -6,7 +6,7 @@ public class Spike:GimmickBase
     {
         // 当たった瞬間でなければ処理しない
         if (hitType != eHitType.Enter) return;
-        Debug.Log("トゲ : 効果発動");
+        Debug.Log("ギミック発動 : トゲ " + hitType);
         if (character == null) return;
         character.Dead();
     }

@@ -8,8 +8,11 @@ public class Spring :GimmickBase
     {
         if (_gimmickObj == null) return;
         if (hitType != eHitType.Enter) return;
+        Debug.Log("ギミック発動 : ジャンプ台 " + hitType);
         Vector2 forceValue = AngleToVec(_gimmickObj.transform.rotation.z);
         character.SetForce(_PLAYER_FORCE_POWER, forceValue);
+        _gimmickObj.StartEffect();
+
     }
     /// <summary>
     /// デグリー角からベクトルを取得する関数
