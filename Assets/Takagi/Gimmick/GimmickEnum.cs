@@ -16,5 +16,6 @@ public enum eGimmick
     Invalid=-1,
     Spike,      // トゲ
     Spring,     // バネ
+    Gem,     // ジェム
     Max,
 }
