@@ -6,30 +6,39 @@
 　触れるとマデリンがやられる。横から触れてもダメ。
 　壁や床から生えているトゲや宙に浮かぶ玉状のトゲがあり、チャプターごとに様々な見た目で置かれている。
 　玉状のトゲは見た目よりも判定が小さい。特に縦方向は、マデリンの判定の小ささもあって、かすっても大丈夫。
+　https://youtu.be/cbtYApvvGgc?si=1wCRYI-_GjATfuPy&t=168
+　https://youtu.be/cbtYApvvGgc?si=B6FwIsMDuLcWeGiq&t=2431
 
 ☑ジャンプ台／バネ(Spring)
 　触れると上や横へ大きく跳ね飛ばされる。
 　触り方・ジャンプ入力に関わらず、跳び方は一定。軌道調節は、触る位置と跳んだあとの動きで。
 　跳ぶときにはダッシュが回復し、跳んだ直後からダッシュが使える。タイミングを狙うときに。
+　https://youtu.be/cbtYApvvGgc?si=LLJuUgsd7gJJvl-T&t=189
 
 ☑ダイヤ／クリスタル(Diamond/Gem) (Refill)
 　ダッシュを消費しているときに触れると、砕いてダッシュを回復する。
 　スタミナを回復する効果もあり*2、ダッシュ非消費時でもスタミナ切れなら砕ける。
 　見た目より判定が広く、やや通り過ぎてからダッシュを使っても砕ける。
 　砕いたあと、少し経つと再生成されるものと、エリアの再読み込みまで消えたままのものがある。後者は砕いたあとの白枠がない。
-　くずれる足場(Disappearing Platforms) (Crumble Block)
+　https://youtu.be/cbtYApvvGgc?si=1wCRYI-_GjATfuPy&t=168
+
+☑くずれる足場(Disappearing Platforms) (Crumble Block)
 　マデリンが上に乗ったり横にしがみつくと崩れて消えるブロック。少し経つと再生成される。
+　https://youtu.be/cbtYApvvGgc?si=aEN3jOJpxWFXGsAq&t=243
 
 ☑落下ブロック(Falling Platform) (Falling Block)
 　上に乗ったり横にしがみつくと落ちていくブロック。ときには落下先で利用せねばならないことも。
+　https://youtu.be/cbtYApvvGgc?si=iNVR_pKZa3kU_hFw&t=254
 
 ☑点滅ブロック (Cassette Block)
 　赤・青などの色に分かれており、曲のテンポに合わせて定まった周期で実体化するブロック。
 　マデリンと重なっている場合は離れるまで実体化しない。
 　テープカセットのあるエリア・B面の最後に置かれている。
+　https://youtu.be/spz6plb_oUc?si=FN80qgPGMaBWZ2U4&t=35
 
 (☑)バデリンチェイス(Badeline Chase)
 　マデリンの動きを3秒遅れてたどる。触れるとこちらがやられてしまうので、要所で止まるなど制御すると良い。
+　https://youtu.be/cbtYApvvGgc?si=W3Mr48LQRBmzTZWE&t=541
 
 ☑フグ／ブローフィッシュ (Puffer)
 　上から踏むとフグを下に動かしつつ跳ね、横～下から触れると水平やや上に勢いよく飛ばされる*11。
@@ -38,3 +47,4 @@
 　踏んで落とすことと合わせて先へ運ばねばならないことも。
 　飛ばされるときに飛ばされる方向キーを入力していると、バンパーやシーカーの爆発と同様に、通常よりも強い勢いを得る。
 　場合によっては追加の勢いを得ないように、入力している方向を意識する必要がある。
+　https://youtu.be/qyOapJgLcEI?si=5bWkcDMrXnsdsL3w&t=227
