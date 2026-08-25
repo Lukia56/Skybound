@@ -2,7 +2,7 @@
 
 public class CrumbleBlock : GimmickBase
 {
-    public override void GimmickAction(Player character, eHitType hitType)
+    public override void ToPlayerAction(Player character, eHitType hitType)
     {
         Debug.Log("崩落");
     }

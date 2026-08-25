@@ -26,11 +26,7 @@ public class GimmickManager
     {
         int gimmickMax = (int)eGimmick.Max;
         gimmickList = new List<List<GimmickData>>();
-        for (int i = 0; i < gimmickMax; i++)
-        {
-            gimmickList.Add(new List<GimmickData>()); 
-
-        }
+    
     }
     public GimmickBase CreateGimmick(eGimmick gimmickType)
     {
