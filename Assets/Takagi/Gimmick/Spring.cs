@@ -7,6 +7,7 @@ public class Spring :GimmickBase
     public override void ToPlayerAction(Player character, eHitType hitType)
     {
         if (_gimmickObj == null) return;
+        if (hitType != eHitType.Enter) return;
         Vector2 forceValue = AngleToVec(_gimmickObj.transform.rotation.z);
         character.SetForce(_PLAYER_FORCE_POWER, forceValue);
     }

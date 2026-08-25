@@ -23,11 +23,6 @@ public class GimmickObject : MonoBehaviour
     /// </summary>
     private List<GameObject> _hitStayObjects=new List<GameObject>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    ~GimmickObject()
-    {
-        GimmickManager.instance.UnUseGimmick(gimmick);
-        gimmick=null;
-    }
     void Start()
     {
         if (gimmick == null)
@@ -115,6 +110,7 @@ public class GimmickObject : MonoBehaviour
     private void Action(Player character,eHitType hitType)
     {
         Debug.Log("効果発動"+hitType);
+        gimmick.SetGimmickObject(this);
         gimmick.ToPlayerAction(character, hitType);
         gimmick.ToObjectAction(this);
     }
