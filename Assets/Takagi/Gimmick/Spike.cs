@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Spike:GimmickBase
 {
@@ -9,5 +10,12 @@ public class Spike:GimmickBase
         Debug.Log("ギミック発動 : トゲ " + hitType);
         if (character == null) return;
         character.Dead();
+        if(character.IsPlayer())
+        StageSceneManager.instance.LoadCurrentStage();
+    }
+    public override void OtherAction(eHitType hitType)
+    {
+        if (hitType != eHitType.Enter) return;
+
     }
 }

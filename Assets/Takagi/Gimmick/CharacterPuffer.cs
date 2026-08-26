@@ -51,7 +51,7 @@ public class CharacterPuffer : CharacterBase
     /// 押された直後の経過時間
     /// </summary>
     [SerializeField] private float _pushCount = 0.0f;
-    private const float _PUSH_POWER_NORMALIZE = 0.05f;
+    private const float _PUSH_POWER_NORMALIZE = 0.025f;
     private void Start()
     {
         // 初期座標を取得
@@ -126,7 +126,7 @@ public class CharacterPuffer : CharacterBase
             _pushVector.y = 0.0f;
         }
         // 水平方向のセンサーがマップのフィールドに接触していたら
-        if (_holizontal && _vertilal.isHit)
+        if (_holizontal && _holizontal.isHit)
         {
             // 水平方向の移動量をリセット
             _pushVector.x = 0.0f;

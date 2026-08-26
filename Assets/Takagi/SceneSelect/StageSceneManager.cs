@@ -76,6 +76,20 @@ public class StageSceneManager
         LoadStage(currentStageID);
     }
     /// <summary>
+    /// 同じステージへ遷移
+    /// </summary>
+    public void LoadCurrentStage()
+    {
+        // 次のステージIDが不正値での時ステージ選択シーンへ遷移
+        if (currentStageID < 0 ||
+            currentStageID >= SceneName.SCENE_STAGE.Length)
+        {
+            LoadStageSelect();
+        }
+        // ステージを読み込む
+        LoadStage(currentStageID);
+    }
+    /// <summary>
     /// ステージ選択シーンに遷移する
     /// </summary>
     public void LoadStageSelect()

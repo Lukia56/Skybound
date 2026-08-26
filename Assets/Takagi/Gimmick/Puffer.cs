@@ -67,6 +67,11 @@ public class Puffer:GimmickBase
         // オブジェクトに対する処理
         ToObjectAction(_gimmickObj, eHitType.Other);
         Debug.Log("ギミック発動 : フグ");
+        if (character.GetComponent<CharacterPuffer>() != null)
+        {
+        Debug.Log("ギミック発動 : フグフグフグフグフグ");
+
+        }
     }
     /// <summary>
     /// 自身と指定座標の角度を求める
