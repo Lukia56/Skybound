@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
 
         _moveInput = InputSystem.actions.FindAction("Move");
         _jumpInput = InputSystem.actions.FindAction("Jump");
-        _dashInput = InputSystem.actions.FindAction("Sprint");
+        _dashInput = InputSystem.actions.FindAction("Dash");
     }
 
     private void FixedUpdate()
