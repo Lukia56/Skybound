@@ -1,8 +1,18 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player : CharacterBase
 {
+    enum State
+    {
+        Idle,
+        Run,
+        Jump,
+        Fall,
+        Dash,
+    }
+
     [Header("Param")]
 
     [SerializeField]
@@ -51,17 +61,23 @@ public class Player : CharacterBase
 
     private bool _onGroundBuffer = false;
 
+    private State _state = State.Idle;
+
     private InputAction _moveInput = null;
     private InputAction _jumpInput = null;
     private InputAction _dashInput = null;
 
-    private void Start()
+    private Animator _animator = null;
+
+    protected override void Start()
     {
-        _myRigidbody = GetComponent<Rigidbody2D>();
+        base.Start();
 
         _moveInput = InputSystem.actions.FindAction("Move");
         _jumpInput = InputSystem.actions.FindAction("Jump");
         _dashInput = InputSystem.actions.FindAction("Dash");
+
+        _animator = GetComponent<Animator>();
     }
 
     protected override void FixedUpdate()
@@ -97,6 +113,8 @@ public class Player : CharacterBase
         JumpProcess();
 
         DashProcess();
+
+        UpdateAnimation();
     }
 
     private void JumpProcess()
@@ -169,6 +187,48 @@ public class Player : CharacterBase
         return _dashCount > 0 && _dashCooldownTimer <= 0.0f;
     }
 
+    private void UpdateAnimation()
+    {
+        SetAnimationDirection();
+
+        if (_isDashing)
+        {
+            SetState(State.Dash);
+            return;
+        }
+
+        if (_velocity.y < 0.0f)
+        {
+            SetState(State.Fall);
+            return;
+        }
+
+        if (_velocity.y > 0.0f)
+        {
+            SetState(State.Jump);
+            return;
+        }
+
+        if (_onGround && !Mathf.Approximately(_velocity.x, 0.0f))
+        {
+            SetState(State.Run);
+            return;
+        }
+
+        SetState(State.Idle);
+    }
+
+    private void SetAnimationDirection()
+    {
+        Vector2 moveDir = _moveInput.ReadValue<Vector2>();
+
+        Vector3 scale = transform.localScale;
+        if (moveDir.x > 0.0f) scale.x = 1.0f;
+        if (moveDir.x < 0.0f) scale.x = -1.0f;
+
+        transform.localScale = scale;
+    }
+
     public override void SetForce(float force, Vector2 normal)
     {
         // ダッシュを解除する
@@ -187,6 +247,12 @@ public class Player : CharacterBase
     public override void RechargeDash()
     {
         _dashCount = _maxDashNum;
+    }
+
+    private void SetState(State state)
+    {
+        _state = state;
+        _animator.SetInteger("State", (int)state);
     }
 
     /// <summary>

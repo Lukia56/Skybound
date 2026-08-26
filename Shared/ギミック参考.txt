@@ -40,7 +40,7 @@
 　https://youtu.be/cbtYApvvGgc?si=iNVR_pKZa3kU_hFw&t=254
 
 
-☑点滅ブロック (Cassette Block) 担当 : 
+☑点滅ブロック (Cassette Block) 担当 : 大澤
 
 　赤・青などの色に分かれており、曲のテンポに合わせて定まった周期で実体化するブロック。
 　マデリンと重なっている場合は離れるまで実体化しない。
