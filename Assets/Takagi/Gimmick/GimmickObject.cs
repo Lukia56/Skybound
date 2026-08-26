@@ -19,7 +19,7 @@ public class GimmickObject : MonoBehaviour
     struct HitCharacter
     {
         // キャラクターとしての情報
-        public Player character;
+        public CharacterBase character;
         // オブジェクトとしての情報
         public GameObject Object;
     }
@@ -51,21 +51,21 @@ public class GimmickObject : MonoBehaviour
         for (int i = 0; i < _hitCharacters.Count; i++){
             if (obj == _hitCharacters[i].Object){
                 // キャラクターを取得
-                Player player = _hitCharacters[i].character;
+                CharacterBase Character = _hitCharacters[i].character;
                 // アクションの実行
-                Action(player, eHitType.Enter);
+                Action(Character, eHitType.Enter);
                 return;
             }
         }
         // オブジェクトがキャラクタークラスを所持しているかどうかを取得
-        Player isPlayer = obj.GetComponent<Player>();
-        if (isPlayer!=null){
+        CharacterBase isCharacter = obj.GetComponent<CharacterBase>();
+        if (isCharacter!=null){
             // 所持していれば効果発動
-            Action(isPlayer, eHitType.Enter);
+            Action(isCharacter, eHitType.Enter);
             // 配列に存在していなければ
             // 接触したキャラクター配列に追加
             HitCharacter hitCharacter;
-            hitCharacter.character = isPlayer;
+            hitCharacter.character = isCharacter;
             hitCharacter.Object= obj;
             _hitCharacters.Add(hitCharacter);
         }
@@ -85,11 +85,11 @@ public class GimmickObject : MonoBehaviour
     private void CheckCharacterExit(GameObject obj)
     {
         // オブジェクトがキャラクタークラスを所持しているかどうかを取得
-        Player isPlayer = obj.GetComponent<Player>();
-        if (isPlayer!=null)
+        CharacterBase isCharacter = obj.GetComponent<CharacterBase>();
+        if (isCharacter!=null)
         {
             // 所持していれば効果発動
-            Action(isPlayer, eHitType.Exit);
+            Action(isCharacter, eHitType.Exit);
         }
     }
     private void OnCollisionStay2D(Collision2D collision)
@@ -118,7 +118,7 @@ public class GimmickObject : MonoBehaviour
             }
         }
     }
-    private void Action(Player character,eHitType hitType)
+    private void Action(CharacterBase character,eHitType hitType)
     {
        GimmickManager.instance.Action(character,_gimmickType,this,hitType);
     }

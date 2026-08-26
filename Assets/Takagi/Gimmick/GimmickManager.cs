@@ -62,7 +62,7 @@ public class GimmickManager
         }
         return gimmickList[gimmickID];
     }
-    public void Action(Player character,eGimmick gimmickType,GimmickObject gimmickObj, eHitType hitType)
+    public void Action(CharacterBase character, eGimmick gimmickType,GimmickObject gimmickObj, eHitType hitType)
     {
         Debug.Log("効果発動" + hitType);
         int gimmickID = (int)gimmickType;

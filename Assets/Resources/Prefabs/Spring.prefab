@@ -282,7 +282,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GimmickObject
   _image: {fileID: 1608410710253995584}
   _gimmickType: 1
-  isHit: 0
 --- !u!61 &3438351058453506863
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -327,7 +326,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.91, y: 0.4}
+  m_Size: {x: 0.6, y: 0.6}
   m_EdgeRadius: 0
 --- !u!50 &1473950794105787151
 Rigidbody2D:

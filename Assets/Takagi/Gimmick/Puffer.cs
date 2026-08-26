@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
 
@@ -15,7 +16,7 @@ public class Puffer:GimmickBase
     private const float _PUSH_ANGLE_RIGHT = -70.0f;     // 右方向 少し上方向に
     private const float _PUSH_ANGLE_LEFT = 70.0f;       // 左方向 少し上方向に
     private const float _PUSH_ANGLE_RIGHTUP = -60.0f;   // 右上方向
-    private const float _PUSH_ANGLE_LEFTTUP = 60.0f;    // 左上方向
+    private const float _PUSH_ANGLE_LEFTUP = 60.0f;    // 左上方向
     /// <summary>
     /// キャラクターを吹き飛ばす強さ
     /// </summary>
@@ -24,10 +25,24 @@ public class Puffer:GimmickBase
     private const float _PUSH_POWER_SLANT = 1.5f;       // 斜め方向
 
     /// <summary>
+    /// 踏みつけた時の力の量
+    /// </summary>
+    private const float _STEP_POWER = 300;           
+    
+    /// <summary>
     /// キャラクターを押す際のパラメータ
     /// </summary>
     GimmickMath.CharacterPushParam _pushParam;
-
+    struct PufferObject {
+        public GimmickObject gimmickObject;
+        public CharacterPuffer characterPuffer;
+    }
+    /// <summary>
+    /// フグの配列
+    /// </summary>
+    private List<PufferObject> _pufferList;
+    private CharacterPuffer _actionPuffer = null;
+    private eDirectionFour _hitDirection=eDirectionFour.Invalid;
     /// <summary>
     /// キャラクターに対する挙動
     /// </summary>
@@ -36,6 +51,9 @@ public class Puffer:GimmickBase
     public override void ToCharacterAction(CharacterBase character, eHitType hitType)
     {
         if (hitType != eHitType.Enter) return;
+        // 今回の発動で使用するフグを取得
+        _actionPuffer = GetActionPuffer(_gimmickObj);
+        if (_actionPuffer == null) return;
 
         // キャラクターとの角度を求める
         float hitRadian = GetHitRadian(character.transform.position);
@@ -46,6 +64,8 @@ public class Puffer:GimmickBase
         // キャラクターを押す
         Vector2 pushVector = GimmickMath.RadianToVec(_pushParam.pushRadian);
         character.SetForce(_pushParam.pushPower, pushVector);
+        // オブジェクトに対する処理
+        ToObjectAction(_gimmickObj, eHitType.Other);
         Debug.Log("ギミック発動 : フグ");
     }
     /// <summary>
@@ -82,8 +102,21 @@ public class Puffer:GimmickBase
         // 横方向なら
         if (Mathf.Abs(halfDiffer) > _PI_HALF * 0.5f)
         {
-            // 右方向なら右へ、左方向なら左へ
-            angle = (halfDiffer < 0) ?  _PUSH_ANGLE_LEFTTUP: _PUSH_ANGLE_RIGHTUP;
+            if (halfDiffer < 0)
+            {
+                // 右方向なら右へ
+                angle = _PUSH_ANGLE_LEFTUP;
+            // 接触方向を設定
+            _hitDirection=eDirectionFour.Left;
+            _hitDirection=eDirectionFour.Left;
+            }
+            else
+            {
+                // 左方向なら左へ
+                angle = _PUSH_ANGLE_RIGHTUP;
+                // 接触方向を設定
+                _hitDirection = eDirectionFour.Right;
+            }
             // キャラクター押す強さの設定
             _pushParam.pushPower = _PUSH_POWER * _PUSH_POWER_HOLIZONTAL;
         }
@@ -96,19 +129,80 @@ public class Puffer:GimmickBase
                 angle = _PUSH_ANGLE_UP;
                 // キャラクター押す強さの設定
                 _pushParam.pushPower = _PUSH_POWER * _PUSH_POWER_UP;
+                // 接触方向を設定
+                _hitDirection = eDirectionFour.Up;
             }
             // 下方向なら
             else
             {
-                // 右方向なら右上へ、左方向なら左上へ
-                angle = (halfDiffer < 0) ? _PUSH_ANGLE_LEFT : _PUSH_ANGLE_RIGHT;
-                if (angle == _PUSH_ANGLE_RIGHT) { Debug.Log("フグ押すRIGHT"); }
-                else { Debug.Log("フグ押すLEFT"); }
+                if (halfDiffer < 0)
+                {
+                    // 右方向なら右へ
+                    angle = _PUSH_ANGLE_LEFT;
+                    Debug.Log("フグ押すRIGHT");
+                    
+                }
+                else
+                {
+                    // 左方向なら左へ
+                    angle = _PUSH_ANGLE_RIGHT;
+                    Debug.Log("フグ押すLEFT");
+
+                }
                 // キャラクター押す強さの設定
                 _pushParam.pushPower = _PUSH_POWER * _PUSH_POWER_SLANT;
+                // 接触方向を設定
+                _hitDirection= eDirectionFour.Down;
             }
         }
         // デグリー角をラジアン角に変換
         _pushParam.pushRadian=angle*GimmickMath._TO_RADIAN;
     }
+
+    public override void ToObjectAction(GimmickObject gimmickObject, eHitType hitType)
+    {
+        if (hitType != eHitType.Other) return;
+       
+        if (_hitDirection == eDirectionFour.Up)
+        {
+            // 上から踏まれた際は下方向に押す
+            _actionPuffer.SetForce(_STEP_POWER, Vector2.down);
+        }
+        else
+        {
+            // それ以外は爆破処理
+            _actionPuffer.Explosion();
+            // 見た目を動作させる
+            _gimmickObj.StartEffect();
+        }
+    }
+    private CharacterPuffer GetActionPuffer(GimmickObject gimmickObject)
+    {
+        CharacterPuffer puffer = null;
+        if (_pufferList == null) _pufferList = new List<PufferObject>();
+        // 引数のオブジェクトを以前使ったことがあるかどうかを調べる
+        for (int i = 0; i < _pufferList.Count; i++)
+        {
+            if (_pufferList[i].gimmickObject != gimmickObject) continue;
+            // 以前使っていたら
+            puffer = _pufferList[i].characterPuffer;
+        }
+        if (puffer == null)
+        {
+            // 使ったことがなければ
+
+            // 引数のオブジェクトがCharacterPufferを持っているかどうか調べる
+            puffer = gimmickObject.GetComponent<CharacterPuffer>();
+            // 持っていなければ即時return
+            if (puffer == null) return null;
+            // 持っているとき
+            PufferObject pufferObj;
+            pufferObj.gimmickObject = gimmickObject;
+            pufferObj.characterPuffer = puffer;
+            // 配列に追加
+            _pufferList.Add(pufferObj);
+        }
+        return puffer;
+    }
+
 }

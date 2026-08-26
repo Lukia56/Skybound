@@ -8,6 +8,7 @@ public enum eHitType
     Enter,      // 当たった瞬間
     Stay,       // 当たっている間
     Exit,       // 離れた瞬間
+    Other,      // 上記以外
     Max,
 }
 
