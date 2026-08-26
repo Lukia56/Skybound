@@ -5,11 +5,24 @@ using UnityEngine;
 public class GimmickBase
 {
     /// <summary>
+    /// 吹きとばす強さの基本
+    /// </summary>
+    protected const float _PUSH_POWER = 200;
+
+
+    public class CharacterPushParam
+    {
+        public Vector2 pushVec = Vector2.zero;
+        public float pushPower = 0.0f;
+    }
+
+
+    /// <summary>
     /// 指定したキャラクターに対するアクション
     /// </summary>
     /// <param name="character"></param>
     /// <param name="hitType"></param>
-    public virtual void ToCharacterAction(Player character, eHitType hitType){}
+    public virtual void ToCharacterAction(CharacterBase character, eHitType hitType){}
     public void SetGimmickObject(GimmickObject gimmickObj) { this._gimmickObj = gimmickObj; }
     protected GimmickObject _gimmickObj;
     /// <summary>
