@@ -33,6 +33,15 @@ public class GimmickManager
                 case eGimmick.Gem:
                     gimmickList.Add(new Gem());
                     break;
+                    case eGimmick.Fall:
+                    gimmickList.Add(null);
+                    break;
+                    case eGimmick.HideBlock:
+                    gimmickList.Add(null);
+                    break;
+                    case eGimmick.Puffer:
+                    gimmickList.Add(new Puffer());
+                    break;
                 case eGimmick.StageClear:
                     gimmickList.Add(new StageClear());
                     break;

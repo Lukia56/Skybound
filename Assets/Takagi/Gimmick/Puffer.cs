@@ -97,7 +97,7 @@ public class Puffer:GimmickBase
             else
             {
                 // 右方向なら右上へ、左方向なら左上へ
-                angle = (halfDiffer < 0) ? _PUSH_ANGLE_RIGHTUP : _PUSH_ANGLE_LEFTTUP;
+                angle = (halfDiffer < 0) ? _PUSH_ANGLE_RIGHT : _PUSH_ANGLE_LEFT;
                 // キャラクター押す強さの設定
                 _pushParam.pushPower = _PUSH_POWER * _PUSH_POWER_SLANT;
             }
