@@ -113,7 +113,7 @@ public abstract class CharacterBase : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position + _checkCeilingDistance * Vector3.up, _checkCeilingRadius);
     }
 
-    public void SetForce(float force, Vector2 normal)
+    public virtual void SetForce(float force, Vector2 normal)
     {
         Assert.AreApproximatelyEqual(1.0f, normal.sqrMagnitude);
 

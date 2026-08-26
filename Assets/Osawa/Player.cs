@@ -125,7 +125,7 @@ public class Player : CharacterBase
             _dashCooldownTimer -= Time.deltaTime;
         }
 
-        if (_dashInput.IsPressed() && moveDir != Vector2.zero && CanDash())
+        if (_dashInput.WasPressedThisFrame() && moveDir != Vector2.zero && CanDash())
         {
             SetForce(_dashForce, moveDir);
 
@@ -167,6 +167,17 @@ public class Player : CharacterBase
     private bool CanDash()
     {
         return _dashCount > 0 && _dashCooldownTimer <= 0.0f;
+    }
+
+    public override void SetForce(float force, Vector2 normal)
+    {
+        // ダッシュを解除する
+        if (_isDashing)
+        {
+            OnEndDash();
+        }
+
+        base.SetForce(force, normal);
     }
 
     public override void Dead()
