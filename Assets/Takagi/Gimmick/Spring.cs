@@ -10,11 +10,11 @@ public class Spring :GimmickBase
     /// <summary>
     /// 押す力の倍率を求める際に使う角度に応じた力の倍率
     /// </summary>
-    const float _PLAYER_PUSH_ROTATE_RATIO = 1.75f;
+    const float _PLAYER_PUSH_ROTATE_RATIO = 1.5f;
     /// <summary>
     /// 押す力の倍率を求める際に使う角度の倍率
     /// </summary>
-    const float _CALCULATE_RADIAN_RATIO = 1.5f;
+    const float _CALCULATE_RADIAN_RATIO = 1.2f;
 
  
     public override void ToCharacterAction(CharacterBase character, eHitType hitType)
