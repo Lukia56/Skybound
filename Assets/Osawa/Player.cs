@@ -164,7 +164,7 @@ public class Player : CharacterBase
 
     private bool CanWallJump()
     {
-        return _onWall && !_onGroundBuffer && !_isJumping;
+        return _onWall && !_onGroundBuffer;
     }
 
     private void DashProcess()
