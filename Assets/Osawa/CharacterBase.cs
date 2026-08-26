@@ -44,7 +44,12 @@ public abstract class CharacterBase : MonoBehaviour
     [SerializeField]
     protected bool _useGravity = true;
 
-    protected Rigidbody2D _myRigidbody = null;
+    private Rigidbody2D _myRigidbody = null;
+
+    protected virtual void Start()
+    {
+        _myRigidbody = GetComponent<Rigidbody2D>();
+    }
 
     protected virtual void FixedUpdate()
     {
