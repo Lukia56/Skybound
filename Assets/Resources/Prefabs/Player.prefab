@@ -110,17 +110,22 @@ MonoBehaviour:
   _gravityScale: 1
   _checkGroundRadius: 0.5
   _checkGroundDistance: 0.55
+  _checkCeilingRadius: 0.5
+  _checkCeilingDistance: 0.55
   _groundLayerMask:
     serializedVersion: 2
     m_Bits: 8
   _velocity: {x: 0, y: 0}
   _targetVelocity: {x: 0, y: 0}
   _onGround: 0
+  _onCeiling: 0
   _useGravity: 1
   _moveForce: 200
   _jumpForce: 300
   _minVelocityY: -500
   _jumpCancelThreshold: 100
+  _checkGroundBufferRadius: 0.4
+  _checkGroundBufferDistance: 1
   _maxDashNum: 1
   _dashForce: 700
   _dashTime: 0.35

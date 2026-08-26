@@ -15,9 +15,14 @@ public abstract class CharacterBase : MonoBehaviour
     protected float _gravityScale = 1.0f;
 
     [SerializeField]
-    protected float _checkGroundRadius = 0.0f;
+    private float _checkGroundRadius = 0.0f;
     [SerializeField]
-    protected float _checkGroundDistance = 0.0f;
+    private float _checkGroundDistance = 0.0f;
+
+    [SerializeField]
+    private float _checkCeilingRadius = 0.0f;
+    [SerializeField]
+    private float _checkCeilingDistance = 0.0f;
 
     [SerializeField]
     private LayerMask _groundLayerMask;
@@ -33,6 +38,8 @@ public abstract class CharacterBase : MonoBehaviour
 
     [SerializeField]
     protected bool _onGround = false;
+    [SerializeField]
+    protected bool _onCeiling = false;
 
     [SerializeField]
     protected bool _useGravity = true;
@@ -47,6 +54,7 @@ public abstract class CharacterBase : MonoBehaviour
         _velocity.x = Mathf.MoveTowards(_velocity.x, _targetVelocity.x, _accel);
 
         _onGround = CheckGround();
+        _onCeiling = CheckCeiling();
 
         if (_onGround)
         {
@@ -61,6 +69,18 @@ public abstract class CharacterBase : MonoBehaviour
             if (_useGravity)
             {
                 _velocity.y += Physics2D.gravity.y * _gravityScale;
+            }
+            else
+            {
+                _velocity.y = Mathf.MoveTowards(_velocity.y, _targetVelocity.y, _accel);
+            }
+        }
+
+        if (_onCeiling)
+        {
+            if (_velocity.y > 0.0f)
+            {
+                _velocity.y = 0.0f;
             }
         }
     }
@@ -77,10 +97,20 @@ public abstract class CharacterBase : MonoBehaviour
         return hit.collider != null;
     }
 
+    private bool CheckCeiling()
+    {
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, _checkCeilingRadius, Vector2.up, _checkCeilingDistance, _groundLayerMask);
+
+        return hit.collider != null;
+    }
+
     protected virtual void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position + _checkGroundDistance * Vector3.down, _checkGroundRadius);
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position + _checkCeilingDistance * Vector3.up, _checkCeilingRadius);
     }
 
     public void SetForce(float force, Vector2 normal)
