@@ -8,6 +8,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Takagi/takagi Scene.unity
+    guid: 7df827b9256383544a80d08c028902e5
+  - enabled: 1
+    path: Assets/Takagi/TestScene/TakagiStage1.unity
+    guid: b975e35f5d4217e4ea245071783a06bd
+  - enabled: 1
+    path: Assets/Takagi/TestScene/TakagiStage2.unity
+    guid: 553109f41fd87134cbf39b4b6c420aec
+  - enabled: 1
+    path: Assets/Takagi/TestScene/TakagiStage3.unity
+    guid: 73849286116761b4eb6dac117e2a41c0
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
