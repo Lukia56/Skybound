@@ -288,6 +288,11 @@ public class Player : CharacterBase
         _animator.SetInteger("State", (int)state);
     }
 
+    public override bool IsPlayer()
+    {
+        return true;
+    }
+
     /// <summary>
     /// 着地猶予込みで接地判定
     /// </summary>

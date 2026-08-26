@@ -95,6 +95,11 @@ public abstract class CharacterBase : MonoBehaviour
         _velocity.y = 0.0f;
     }
 
+    public virtual bool IsPlayer()
+    {
+        return false;
+    }
+
     private bool CheckGround()
     {
         RaycastHit2D hit = Physics2D.CircleCast(transform.position + Vector3.down * 0.5f, _checkGroundRadius, Vector2.down, _checkGroundDistance, _groundLayerMask);
