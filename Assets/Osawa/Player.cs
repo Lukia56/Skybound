@@ -16,6 +16,12 @@ public class Player : CharacterBase
     [SerializeField]
     private float _jumpCancelThreshold = 0.0f;
 
+    // 着地判定猶予の設定
+    [SerializeField]
+    private float _checkGroundBufferRadius = 0.0f;
+    [SerializeField]
+    private float _checkGroundBufferDistance = 0.0f;
+
     [SerializeField]
     private int _maxDashNum = 0;
     [SerializeField]
@@ -38,6 +44,8 @@ public class Player : CharacterBase
     [SerializeField]
     private bool _isDashing = false;
 
+    private bool _onGroundBuffer = false;
+
     private InputAction _moveInput = null;
     private InputAction _jumpInput = null;
     private InputAction _dashInput = null;
@@ -59,6 +67,8 @@ public class Player : CharacterBase
         {
             _velocity.y = Mathf.MoveTowards(_velocity.y, _minVelocityY, Physics2D.gravity.y);
         }
+
+        _onGroundBuffer = CheckGroundBuffer();
     }
 
     protected override void AtLanded()
@@ -86,7 +96,7 @@ public class Player : CharacterBase
 
     private void JumpProcess()
     {
-        if (_jumpInput.WasPressedThisFrame() && _onGround)
+        if (_jumpInput.WasPressedThisFrame() && _onGroundBuffer)
         {
             _velocity.y = _jumpForce;
 
@@ -154,5 +164,23 @@ public class Player : CharacterBase
     public override void RechargeDash()
     {
         _dashCount = _maxDashNum;
+    }
+
+    /// <summary>
+    /// 着地猶予込みで接地判定
+    /// </summary>
+    private bool CheckGroundBuffer()
+    {
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, _checkGroundBufferRadius, Vector2.down, _checkGroundBufferDistance, GroundLayerMask);
+
+        return hit.collider != null;
+    }
+
+    protected override void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position + _checkGroundBufferDistance * Vector3.down, _checkGroundBufferRadius);
     }
 }

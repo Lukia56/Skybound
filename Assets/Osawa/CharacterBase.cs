@@ -21,6 +21,7 @@ public abstract class CharacterBase : MonoBehaviour
 
     [SerializeField]
     private LayerMask _groundLayerMask;
+    public LayerMask GroundLayerMask { get { return _groundLayerMask; } }
 
     [Header("Member")]
 
@@ -76,7 +77,7 @@ public abstract class CharacterBase : MonoBehaviour
         return hit.collider != null;
     }
 
-    private void OnDrawGizmos()
+    protected virtual void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position + _checkGroundDistance * Vector3.down, _checkGroundRadius);
