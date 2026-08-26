@@ -1,8 +1,7 @@
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public class Player : CharacterBase
 {
     [Header("Param")]
 
@@ -27,9 +26,6 @@ public class Player : MonoBehaviour
     [Header("Member")]
 
     [SerializeField]
-    private Vector2 _velocity;
-
-    [SerializeField]
     private bool _isJumping;
 
     [SerializeField]
@@ -42,21 +38,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private bool _isDashing = false;
 
-    private bool _onGround = false;
-
-    [SerializeField]
-    private float _checkGroundRadius = 0.0f;
-    [SerializeField]
-    private float _checkGroundDistance = 0.0f;
-
-    private Rigidbody2D _myRigidbody = null;
-
     private InputAction _moveInput = null;
     private InputAction _jumpInput = null;
     private InputAction _dashInput = null;
-
-    [SerializeField]
-    private LayerMask _groundLayerMask;
 
     private void Start()
     {
@@ -67,33 +51,19 @@ public class Player : MonoBehaviour
         _dashInput = InputSystem.actions.FindAction("Dash");
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
-        _myRigidbody.linearVelocityX += _velocity.x / _myRigidbody.mass * Time.fixedDeltaTime;
-        _myRigidbody.linearVelocityY += _velocity.y / _myRigidbody.mass * Time.fixedDeltaTime;
-
-        _onGround = CheckGround();
-
-        if (_onGround)
-        {
-            // 接地時
-            if (_velocity.y < 0.0f)
-            {
-                _velocity.y = 0.0f;
-                _isJumping = false;
-                RechargeDash();
-            }
-        }
-        else
-        {
-            // ダッシュ中でなければ重力の影響を受ける
-            if (!_isDashing)
-            {
-                _velocity.y += Physics2D.gravity.y;
-            }
-        }
+        base.FixedUpdate();
 
         _velocity.y = Mathf.Max(_velocity.y, _minVelocityY);
+    }
+
+    protected override void AtLanded()
+    {
+        base.AtLanded();
+
+        _isJumping = false;
+        RechargeDash();
     }
 
     private void Update()
@@ -139,6 +109,8 @@ public class Player : MonoBehaviour
 
             _dashTimer = _dashTime;
             _isDashing = true;
+
+            _useGravity = false;
         }
 
         if (_dashTimer > 0.0f)
@@ -149,6 +121,7 @@ public class Player : MonoBehaviour
         {
             _isDashing = false;
             _velocity = Vector2.zero;
+            _useGravity = true;
         }
     }
 
@@ -162,32 +135,10 @@ public class Player : MonoBehaviour
         Debug.Log("Player // 死亡処理が呼ばれました");
     }
 
-    public void SetForce(float force, Vector2 normal)
-    {
-        Assert.AreApproximatelyEqual(1.0f, normal.sqrMagnitude);
-
-        _velocity = normal * force;
-
-        Debug.Log("Player // SetForce called");
-    }
-
     public void RechargeDash()
     {
         _dashCount = _maxDashNum;
 
         Debug.Log("Player // RechargeDash called");
-    }
-
-    private bool CheckGround()
-    {
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, _checkGroundRadius, Vector2.down, _checkGroundDistance, _groundLayerMask);
-
-        return hit.collider != null;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position + _checkGroundDistance * Vector3.down, _checkGroundRadius);
     }
 }

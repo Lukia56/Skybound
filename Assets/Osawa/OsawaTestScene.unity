@@ -717,6 +717,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7fdfbecb88188b4086d0dc87905fbac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+  _velocity: {x: 0, y: 0}
+  _onGround: 0
+  _useGravity: 1
+  _checkGroundRadius: 0.5
+  _checkGroundDistance: 0.55
+  _groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
   _moveForce: 50
   _jumpForce: 150
   _minVelocityY: -400
@@ -724,16 +732,10 @@ MonoBehaviour:
   _maxDashNum: 1
   _dashForce: 300
   _dashTime: 0.1
-  _velocity: {x: 0, y: 0}
   _isJumping: 0
   _dashCount: 0
   _dashTimer: 0
   _isDashing: 0
-  _checkGroundRadius: 0.5
-  _checkGroundDistance: 0.55
-  _groundLayerMask:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!50 &1930328452
 Rigidbody2D:
   serializedVersion: 5
