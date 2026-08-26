@@ -26,6 +26,7 @@ public class GimmickObject : MonoBehaviour
 
     /// <summary>
     /// 当たったキャラクターの配列
+    /// GetComponentの回数を減らすために配列として所持しておく
     /// </summary>
     private List<HitCharacter> _hitCharacters=new List<HitCharacter>();
     /// <summary>
