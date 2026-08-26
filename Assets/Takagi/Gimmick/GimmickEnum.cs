@@ -11,6 +11,9 @@ public enum eHitType
     Max,
 }
 
+/// <summary>
+/// ギミックの種類
+/// </summary>
 public enum eGimmick
 {
     Invalid=-1,
@@ -20,5 +23,17 @@ public enum eGimmick
     Fall,       // 落下ブロック
     HideBlock,  // 崩れる足場
     StageClear,  // ゲームクリア
+    Max,
+}
+
+/// <summary>
+/// 4方向
+/// </summary>
+public enum eDirectionFour {
+    Invalid=-1,
+    Up,
+    Right,
+    Down,
+    Left,
     Max,
 }
