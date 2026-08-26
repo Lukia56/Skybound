@@ -6,14 +6,13 @@ using UnityEngine.Assertions;
 /// </summary>
 public abstract class CharacterBase : MonoBehaviour
 {
-    [SerializeField]
-    protected Vector2 _velocity = Vector2.zero;
+    [Header("Param")]
 
     [SerializeField]
-    protected bool _onGround = false;
+    protected float _accel = 0.0f;
 
     [SerializeField]
-    protected bool _useGravity = true;
+    protected float _gravityScale = 1.0f;
 
     [SerializeField]
     protected float _checkGroundRadius = 0.0f;
@@ -23,12 +22,28 @@ public abstract class CharacterBase : MonoBehaviour
     [SerializeField]
     private LayerMask _groundLayerMask;
 
+    [Header("Member")]
+
+    [SerializeField]
+    protected Vector2 _velocity = Vector2.zero;
+
+    [SerializeField]
+    protected Vector2 _targetVelocity = Vector2.zero;
+
+    [SerializeField]
+    protected bool _onGround = false;
+
+    [SerializeField]
+    protected bool _useGravity = true;
+
     protected Rigidbody2D _myRigidbody = null;
 
     protected virtual void FixedUpdate()
     {
-        _myRigidbody.linearVelocityX += _velocity.x / _myRigidbody.mass * Time.fixedDeltaTime;
-        _myRigidbody.linearVelocityY += _velocity.y / _myRigidbody.mass * Time.fixedDeltaTime;
+        _myRigidbody.linearVelocityX = _velocity.x / _myRigidbody.mass * Time.fixedDeltaTime;
+        _myRigidbody.linearVelocityY = _velocity.y / _myRigidbody.mass * Time.fixedDeltaTime;
+
+        _velocity.x = Mathf.MoveTowards(_velocity.x, _targetVelocity.x, _accel);
 
         _onGround = CheckGround();
 
@@ -44,7 +59,7 @@ public abstract class CharacterBase : MonoBehaviour
         {
             if (_useGravity)
             {
-                _velocity.y += Physics2D.gravity.y;
+                _velocity.y += Physics2D.gravity.y * _gravityScale;
             }
         }
     }

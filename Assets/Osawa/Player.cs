@@ -55,7 +55,10 @@ public class Player : CharacterBase
     {
         base.FixedUpdate();
 
-        _velocity.y = Mathf.Max(_velocity.y, _minVelocityY);
+        if (_velocity.y < _minVelocityY)
+        {
+            _velocity.y = Mathf.MoveTowards(_velocity.y, _minVelocityY, Physics2D.gravity.y);
+        }
     }
 
     protected override void AtLanded()
@@ -73,7 +76,7 @@ public class Player : CharacterBase
         // ダッシュ中でなければ水平操作を行う
         if (!_isDashing)
         {
-            _velocity.x = _moveForce * moveDir.x;
+            _targetVelocity.x = _moveForce * moveDir.x;
         }
 
         JumpProcess();
@@ -85,14 +88,15 @@ public class Player : CharacterBase
     {
         if (_jumpInput.WasPressedThisFrame() && _onGround)
         {
-            SetForce(_jumpForce, Vector2.up);
+            _velocity.y = _jumpForce;
 
             _isJumping = true;
         }
 
         if (_jumpInput.WasReleasedThisFrame() && _isJumping && _velocity.y > _jumpCancelThreshold)
         {
-            _velocity.y = 0;
+            _velocity.y = _jumpCancelThreshold;
+
             _isJumping = false;
         }
     }
@@ -109,6 +113,7 @@ public class Player : CharacterBase
 
             _dashTimer = _dashTime;
             _isDashing = true;
+            _isJumping = false;
 
             _useGravity = false;
         }
