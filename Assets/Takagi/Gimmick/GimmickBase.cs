@@ -7,14 +7,8 @@ public class GimmickBase
     /// <summary>
     /// 吹きとばす強さの基本
     /// </summary>
-    protected const float _PUSH_POWER = 200;
+    protected const float _PUSH_POWER = 500;
 
-
-    public class CharacterPushParam
-    {
-        public Vector2 pushVec = Vector2.zero;
-        public float pushPower = 0.0f;
-    }
 
 
     /// <summary>
