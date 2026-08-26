@@ -119,9 +119,21 @@ public class Player : CharacterBase
         }
         else if (_isDashing)
         {
-            _isDashing = false;
-            _velocity = Vector2.zero;
-            _useGravity = true;
+            OnEndDash();
+        }
+    }
+
+    private void OnEndDash()
+    {
+        _velocity.y = 0.0f;
+
+        _isDashing = false;
+        _useGravity = true;
+
+        // 着地した瞬間にのみ回復するため、別途ダッシュ終了時に回復させる
+        if (_onGround)
+        {
+            RechargeDash();
         }
     }
 
