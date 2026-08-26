@@ -107,7 +107,7 @@ public class GimmickObject : MonoBehaviour
     private void CheckCharacterStay(GameObject obj)
     {
         // すでに接触しているキャラクターの中から同じオブジェクトを探す
-        for (int i = 0; i < _hitCharacters.Count; i--)
+        for (int i = 0; i < _hitCharacters.Count; i++)
         {
                 // 同じオブジェクトがあるとき
             if (_hitCharacters[i].Object == obj)
