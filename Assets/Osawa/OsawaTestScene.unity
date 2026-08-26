@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 292461966}
   - component: {fileID: 292461965}
   - component: {fileID: 292461964}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -626,7 +626,7 @@ GameObject:
   - component: {fileID: 1930328453}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -722,12 +722,13 @@ MonoBehaviour:
   _minVelocityY: -400
   _jumpCancelThreshold: 20
   _maxDashNum: 1
-  _dashForce: 100
-  _dashTime: 0.35
+  _dashForce: 300
+  _dashTime: 0.1
   _velocity: {x: 0, y: 0}
   _isJumping: 0
   _dashCount: 0
   _dashTimer: 0
+  _isDashing: 0
   _checkGroundRadius: 0.5
   _checkGroundDistance: 0.55
   _groundLayerMask:
