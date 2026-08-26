@@ -1,15 +1,24 @@
 using UnityEngine;
+using UnityEngine.Rendering.RenderGraphModule;
 
 public class Spring :GimmickBase
 {
-    const float _PLAYER_FORCE_POWER = 150;
+    const float _PLAYER_FORCE_POWER = 100;
+    const float _TO_DEGREE = (180.0f / Mathf.PI);
+    const float _TO_RADIAN = (Mathf.PI / 180.0f);
     public override void ToCharacterAction(Player character, eHitType hitType)
     {
         if (_gimmickObj == null) return;
         if (hitType != eHitType.Enter) return;
-        Vector2 forceValue = RadianToVec(_gimmickObj.transform.rotation.z);
+        //float radian = _gimmickObj.gameObject.transform.rotation.z;
+        float radian=_gimmickObj.gameObject.transform.eulerAngles.z*_TO_RADIAN;
+        Vector2 forceValue = RadianToVec(radian);
         character.SetForce(_PLAYER_FORCE_POWER, forceValue);
         _gimmickObj.StartEffect();
+
+        float angle=Mathf.Atan2(forceValue.y, forceValue.x)*_TO_DEGREE;
+        Debug.Log("ギミック発動 : バネ force : " + hitType + " " + forceValue + " Angle " + angle + " baseAngle " + radian * _TO_DEGREE);
+
 
     }
     /// <summary>
