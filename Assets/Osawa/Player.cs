@@ -189,6 +189,8 @@ public class Player : CharacterBase
 
     private void UpdateAnimation()
     {
+        SetAnimationDirection();
+
         if (_isDashing)
         {
             SetState(State.Dash);
@@ -214,6 +216,17 @@ public class Player : CharacterBase
         }
 
         SetState(State.Idle);
+    }
+
+    private void SetAnimationDirection()
+    {
+        Vector2 moveDir = _moveInput.ReadValue<Vector2>();
+
+        Vector3 scale = transform.localScale;
+        if (moveDir.x > 0.0f) scale.x = 1.0f;
+        if (moveDir.x < 0.0f) scale.x = -1.0f;
+
+        transform.localScale = scale;
     }
 
     public override void SetForce(float force, Vector2 normal)
