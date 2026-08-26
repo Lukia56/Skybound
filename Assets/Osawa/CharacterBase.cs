@@ -97,14 +97,14 @@ public abstract class CharacterBase : MonoBehaviour
 
     private bool CheckGround()
     {
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, _checkGroundRadius, Vector2.down, _checkGroundDistance, _groundLayerMask);
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position + Vector3.down * 0.5f, _checkGroundRadius, Vector2.down, _checkGroundDistance, _groundLayerMask);
 
         return hit.collider != null;
     }
 
     private bool CheckCeiling()
     {
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, _checkCeilingRadius, Vector2.up, _checkCeilingDistance, _groundLayerMask);
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position + Vector3.down * 0.5f, _checkCeilingRadius, Vector2.up, _checkCeilingDistance, _groundLayerMask);
 
         return hit.collider != null;
     }
@@ -112,10 +112,10 @@ public abstract class CharacterBase : MonoBehaviour
     protected virtual void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position + _checkGroundDistance * Vector3.down, _checkGroundRadius);
+        Gizmos.DrawWireSphere(transform.position + Vector3.down * 0.5f + _checkGroundDistance * Vector3.down, _checkGroundRadius);
 
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position + _checkCeilingDistance * Vector3.up, _checkCeilingRadius);
+        Gizmos.DrawWireSphere(transform.position + Vector3.down * 0.5f + _checkCeilingDistance * Vector3.up, _checkCeilingRadius);
     }
 
     public virtual void SetForce(float force, Vector2 normal)

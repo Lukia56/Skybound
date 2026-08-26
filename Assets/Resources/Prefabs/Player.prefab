@@ -109,10 +109,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   _accel: 25
   _gravityScale: 1
-  _checkGroundRadius: 0.5
-  _checkGroundDistance: 0.55
-  _checkCeilingRadius: 0.5
-  _checkCeilingDistance: 0.55
+  _checkGroundRadius: 0.3
+  _checkGroundDistance: 0.25
+  _checkCeilingRadius: 0.4
+  _checkCeilingDistance: 0.7
   _groundLayerMask:
     serializedVersion: 2
     m_Bits: 8
@@ -123,10 +123,13 @@ MonoBehaviour:
   _useGravity: 1
   _moveForce: 200
   _jumpForce: 300
+  _wallJumpForce: {x: 400, y: 200}
   _minVelocityY: -500
   _jumpCancelThreshold: 100
-  _checkGroundBufferRadius: 0.4
+  _checkGroundBufferRadius: 0.25
   _checkGroundBufferDistance: 1
+  _checkWallRadius: 0.5
+  _checkWallDistance: 0
   _maxDashNum: 1
   _dashForce: 700
   _dashDuration: 0.35
@@ -136,6 +139,8 @@ MonoBehaviour:
   _dashTimer: 0
   _dashCooldownTimer: 0
   _isDashing: 0
+  _onWall: 0
+  _wallDir: 0
 --- !u!50 &7260044172348026028
 Rigidbody2D:
   serializedVersion: 5
@@ -197,8 +202,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
+  m_Offset: {x: 0, y: -0.4}
+  m_Size: {x: 0.8, y: 1.2}
   m_Direction: 0
 --- !u!95 &2447935161263839274
 Animator:

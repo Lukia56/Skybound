@@ -21,6 +21,9 @@ public class Player : CharacterBase
     private float _jumpForce = 0.0f;
 
     [SerializeField]
+    private Vector2 _wallJumpForce = Vector2.zero;
+
+    [SerializeField]
     private float _minVelocityY = 0.0f;
 
     [SerializeField]
@@ -32,6 +35,12 @@ public class Player : CharacterBase
     [SerializeField]
     private float _checkGroundBufferDistance = 0.0f;
 
+    // 壁ジャンプ可能判定の設定
+    [SerializeField]
+    private float _checkWallRadius = 0.0f;
+    [SerializeField]
+    private float _checkWallDistance = 0.0f;
+    
     [SerializeField]
     private int _maxDashNum = 0;
     [SerializeField]
@@ -60,6 +69,12 @@ public class Player : CharacterBase
     private bool _isDashing = false;
 
     private bool _onGroundBuffer = false;
+
+    [SerializeField]
+    private bool _onWall = false;
+
+    [SerializeField]
+    private int _wallDir = 0;
 
     private State _state = State.Idle;
 
@@ -90,6 +105,7 @@ public class Player : CharacterBase
         }
 
         _onGroundBuffer = CheckGroundBuffer();
+        _onWall = CheckWall();
     }
 
     protected override void AtLanded()
@@ -119,9 +135,16 @@ public class Player : CharacterBase
 
     private void JumpProcess()
     {
-        if (_jumpInput.WasPressedThisFrame() && _onGroundBuffer)
+        if (_jumpInput.WasPressedThisFrame() && CanJump())
         {
             _velocity.y = _jumpForce;
+
+            _isJumping = true;
+        }
+        if (_jumpInput.WasPressedThisFrame() && CanWallJump())
+        {
+            _velocity.x = _wallJumpForce.x * _wallDir;
+            _velocity.y = _wallJumpForce.y;
 
             _isJumping = true;
         }
@@ -132,6 +155,16 @@ public class Player : CharacterBase
 
             _isJumping = false;
         }
+    }
+
+    private bool CanJump()
+    {
+        return _onGroundBuffer && !_isJumping;
+    }
+
+    private bool CanWallJump()
+    {
+        return _onWall && !_onGroundBuffer && !_isJumping;
     }
 
     private void DashProcess()
@@ -265,11 +298,23 @@ public class Player : CharacterBase
         return hit.collider != null;
     }
 
+    private bool CheckWall()
+    {
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position + Vector3.down * 0.5f, _checkWallRadius, Vector2.down, _checkWallDistance, GroundLayerMask);
+
+        _wallDir = (int)Mathf.Sign(hit.normal.x);
+
+        return hit.collider != null;
+    }
+
     protected override void OnDrawGizmos()
     {
         base.OnDrawGizmos();
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position + _checkGroundBufferDistance * Vector3.down, _checkGroundBufferRadius);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position + Vector3.down * 0.5f + _checkWallDistance * Vector3.down, _checkWallRadius);
     }
 }
