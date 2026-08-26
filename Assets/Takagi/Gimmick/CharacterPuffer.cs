@@ -52,12 +52,16 @@ public class CharacterPuffer : CharacterBase
     /// </summary>
     [SerializeField] private float _pushCount = 0.0f;
     private const float _PUSH_POWER_NORMALIZE = 0.025f;
-    private void Start()
+    protected override void Start()
     {
         // 初期座標を取得
         _initPos = transform.position;
         Init();
     }
+    protected override void FixedUpdate()
+    {
+    }
+
     private void Update()
     {
         float deltaTime= Time.deltaTime;
