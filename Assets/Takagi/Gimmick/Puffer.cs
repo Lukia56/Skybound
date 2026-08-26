@@ -12,21 +12,21 @@ public class Puffer:GimmickBase
     /// キャラクターを吹き飛ばす角度
     /// </summary>
     private const float _PUSH_ANGLE_UP = 0.0f;          // 上方向
-    private const float _PUSH_ANGLE_RIGHT = -90.0f;     // 右方向
-    private const float _PUSH_ANGLE_LEFT = 90.0f;       // 左方向
-    private const float _PUSH_ANGLE_RIGHTUP = -45.0f;   // 右上方向
-    private const float _PUSH_ANGLE_LEFTTUP = 45.0f;    // 左上方向
+    private const float _PUSH_ANGLE_RIGHT = -70.0f;     // 右方向 少し上方向に
+    private const float _PUSH_ANGLE_LEFT = 70.0f;       // 左方向 少し上方向に
+    private const float _PUSH_ANGLE_RIGHTUP = -60.0f;   // 右上方向
+    private const float _PUSH_ANGLE_LEFTTUP = 60.0f;    // 左上方向
     /// <summary>
     /// キャラクターを吹き飛ばす強さ
     /// </summary>
     private const float _PUSH_POWER_UP = 0.8f;          // 上方向
-    private const float _PUSH_POWER_HOLIZONTAL = 1.0f;  // 水平方向
-    private const float _PUSH_POWER_SLANT = 1.0f;       // 斜め方向
+    private const float _PUSH_POWER_HOLIZONTAL = 1.5f;  // 水平方向
+    private const float _PUSH_POWER_SLANT = 1.5f;       // 斜め方向
 
     /// <summary>
     /// キャラクターを押す際のパラメータ
     /// </summary>
-    CharacterPushParam _pushParam;
+    GimmickMath.CharacterPushParam _pushParam;
 
     /// <summary>
     /// キャラクターに対する挙動
@@ -35,6 +35,8 @@ public class Puffer:GimmickBase
     /// <param name="hitType"></param>
     public override void ToCharacterAction(CharacterBase character, eHitType hitType)
     {
+        if (hitType != eHitType.Enter) return;
+
         // キャラクターとの角度を求める
         float hitRadian = GetHitRadian(character.transform.position);
         // ダッシュの回復をさせる
@@ -42,7 +44,9 @@ public class Puffer:GimmickBase
         // キャラクターを押す量を求める
         CalculatePushParam(hitRadian);
         // キャラクターを押す
-        character.SetForce(_pushParam.pushPower, _pushParam.pushVec);
+        Vector2 pushVector = GimmickMath.RadianToVec(_pushParam.pushRadian);
+        character.SetForce(_pushParam.pushPower, pushVector);
+        Debug.Log("ギミック発動 : フグ");
     }
     /// <summary>
     /// 自身と指定座標の角度を求める
@@ -68,7 +72,7 @@ public class Puffer:GimmickBase
     private void CalculatePushParam(float radian)
     {
         // nullなら生成
-        if (_pushParam == null) _pushParam = new CharacterPushParam();
+        if (_pushParam == null) _pushParam = new GimmickMath.CharacterPushParam();
 
         // デグリー角
         float angle = 0.0f;
@@ -79,7 +83,7 @@ public class Puffer:GimmickBase
         if (Mathf.Abs(halfDiffer) > _PI_HALF * 0.5f)
         {
             // 右方向なら右へ、左方向なら左へ
-            angle = (halfDiffer<0)?_PUSH_ANGLE_RIGHTUP:_PUSH_ANGLE_LEFTTUP;
+            angle = (halfDiffer < 0) ?  _PUSH_ANGLE_LEFTTUP: _PUSH_ANGLE_RIGHTUP;
             // キャラクター押す強さの設定
             _pushParam.pushPower = _PUSH_POWER * _PUSH_POWER_HOLIZONTAL;
         }
@@ -97,12 +101,14 @@ public class Puffer:GimmickBase
             else
             {
                 // 右方向なら右上へ、左方向なら左上へ
-                angle = (halfDiffer < 0) ? _PUSH_ANGLE_RIGHT : _PUSH_ANGLE_LEFT;
+                angle = (halfDiffer < 0) ? _PUSH_ANGLE_LEFT : _PUSH_ANGLE_RIGHT;
+                if (angle == _PUSH_ANGLE_RIGHT) { Debug.Log("フグ押すRIGHT"); }
+                else { Debug.Log("フグ押すLEFT"); }
                 // キャラクター押す強さの設定
                 _pushParam.pushPower = _PUSH_POWER * _PUSH_POWER_SLANT;
             }
         }
         // デグリー角をラジアン角に変換
-        _pushParam.pushVec=GimmickMath.RadianToVec(angle*GimmickMath._TO_RADIAN);
+        _pushParam.pushRadian=angle*GimmickMath._TO_RADIAN;
     }
 }

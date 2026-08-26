@@ -17,4 +17,11 @@ public class GimmickMath
         Vector2 vec = new Vector2(x, y);
         return vec;
     }
+
+
+    public class CharacterPushParam
+    {
+        public float pushRadian = 0.0f;
+        public float pushPower = 0.0f;
+    }
 }
