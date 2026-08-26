@@ -130,15 +130,12 @@ public class Player : CharacterBase
         return _dashCount > 0;
     }
 
-    public void Dead()
+    public override void Dead()
     {
-        Debug.Log("Player // 死亡処理が呼ばれました");
     }
 
-    public void RechargeDash()
+    public override void RechargeDash()
     {
         _dashCount = _maxDashNum;
-
-        Debug.Log("Player // RechargeDash called");
     }
 }

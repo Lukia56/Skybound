@@ -73,6 +73,16 @@ public abstract class CharacterBase : MonoBehaviour
 
         _velocity = normal * force;
 
-        Debug.Log("Player // SetForce called");
+        Debug.Log("Character // SetForce called");
+    }
+
+    public virtual void Dead()
+    {
+        Debug.Log("Character // 死亡処理が呼ばれました");
+    }
+
+    public virtual void RechargeDash()
+    {
+        Debug.Log("Character // RechargeDash called");
     }
 }
