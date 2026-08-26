@@ -88,6 +88,11 @@ public class Player : CharacterBase
 
     private Animator _animator = null;
 
+    private SpriteRenderer _renderer = null;
+
+    [SerializeField]
+    private GameObject _deathEffectPrefab = null;
+
     protected override void Start()
     {
         base.Start();
@@ -97,6 +102,8 @@ public class Player : CharacterBase
         _dashInput = InputSystem.actions.FindAction("Dash");
 
         _animator = GetComponent<Animator>();
+
+        _renderer = GetComponent<SpriteRenderer>();
     }
 
     protected override void FixedUpdate()
@@ -289,6 +296,13 @@ public class Player : CharacterBase
     public override void Dead()
     {
         _isDead = true;
+
+        _velocity = Vector2.zero;
+        _targetVelocity = Vector2.zero;
+
+        _renderer.enabled = false;
+
+        Instantiate(_deathEffectPrefab, transform);
     }
 
     public override void RechargeDash()

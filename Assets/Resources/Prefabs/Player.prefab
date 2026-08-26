@@ -141,6 +141,8 @@ MonoBehaviour:
   _isDashing: 0
   _onWall: 0
   _wallDir: 0
+  _isDead: 0
+  _deathEffectPrefab: {fileID: 93286183013044112, guid: d67b9ad86bd3b484cb54ff52336ee573, type: 3}
 --- !u!50 &7260044172348026028
 Rigidbody2D:
   serializedVersion: 5
