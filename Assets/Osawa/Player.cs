@@ -39,6 +39,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _dashTimer = 0.0f;
 
+    [SerializeField]
+    private bool _isDashing = false;
+
     private bool _onGround = false;
 
     [SerializeField]
@@ -61,7 +64,7 @@ public class Player : MonoBehaviour
 
         _moveInput = InputSystem.actions.FindAction("Move");
         _jumpInput = InputSystem.actions.FindAction("Jump");
-        _dashInput = InputSystem.actions.FindAction("Sprint");
+        _dashInput = InputSystem.actions.FindAction("Dash");
     }
 
     private void FixedUpdate()
@@ -73,17 +76,18 @@ public class Player : MonoBehaviour
 
         if (_onGround)
         {
-            // 接地時には垂直速度をリセットする
+            // 接地時
             if (_velocity.y < 0.0f)
             {
                 _velocity.y = 0.0f;
                 _isJumping = false;
+                RechargeDash();
             }
         }
         else
         {
             // ダッシュ中でなければ重力の影響を受ける
-            if (!IsDashing())
+            if (!_isDashing)
             {
                 _velocity.y += Physics2D.gravity.y;
             }
@@ -97,14 +101,9 @@ public class Player : MonoBehaviour
         Vector2 moveDir = _moveInput.ReadValue<Vector2>();
 
         // ダッシュ中でなければ水平操作を行う
-        if (!IsDashing())
+        if (!_isDashing)
         {
             _velocity.x = _moveForce * moveDir.x;
-        }
-
-        if (_onGround)
-        {
-            RechargeDash();
         }
 
         JumpProcess();
@@ -139,22 +138,23 @@ public class Player : MonoBehaviour
             _dashCount--;
 
             _dashTimer = _dashTime;
+            _isDashing = true;
         }
 
-        if (IsDashing())
+        if (_dashTimer > 0.0f)
         {
             _dashTimer -= Time.deltaTime;
+        }
+        else if (_isDashing)
+        {
+            _isDashing = false;
+            _velocity = Vector2.zero;
         }
     }
 
     private bool CanDash()
     {
         return _dashCount > 0;
-    }
-
-    private bool IsDashing()
-    {
-        return _dashTimer > 0.0f;
     }
 
     public void Dead()
