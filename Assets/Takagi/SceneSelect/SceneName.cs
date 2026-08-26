@@ -7,7 +7,7 @@ public class SceneName
     public static readonly string[] SCENE_STAGE =new string[]
     {
         "TakagiStage1",
-        "Stage2",
-        "Stage3",
+        "TakagiStage2",
+        "TakagiStage3",
     };
 }

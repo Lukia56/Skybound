@@ -14,7 +14,7 @@ public class Spring :GimmickBase
     /// <summary>
     /// 押す力の倍率を求める際に使う角度の倍率
     /// </summary>
-    const float _CALCULATE_RADIAN_RATIO = 2.0f;
+    const float _CALCULATE_RADIAN_RATIO = 1.5f;
 
  
     public override void ToCharacterAction(CharacterBase character, eHitType hitType)
