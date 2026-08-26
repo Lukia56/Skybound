@@ -11,6 +11,7 @@ public class Player : CharacterBase
         Jump,
         Fall,
         Dash,
+        Dead,
     }
 
     [Header("Param")]
@@ -76,6 +77,9 @@ public class Player : CharacterBase
     [SerializeField]
     private int _wallDir = 0;
 
+    [SerializeField]
+    private bool _isDead = false;
+
     private State _state = State.Idle;
 
     private InputAction _moveInput = null;
@@ -118,17 +122,20 @@ public class Player : CharacterBase
 
     private void Update()
     {
-        Vector2 moveDir = _moveInput.ReadValue<Vector2>();
-
-        // ダッシュ中でなければ水平操作を行う
-        if (!_isDashing)
+        if (!_isDead)
         {
-            _targetVelocity.x = _moveForce * moveDir.x;
+            Vector2 moveDir = _moveInput.ReadValue<Vector2>();
+
+            // ダッシュ中でなければ水平操作を行う
+            if (!_isDashing)
+            {
+                _targetVelocity.x = _moveForce * moveDir.x;
+            }
+
+            JumpProcess();
+
+            DashProcess();
         }
-
-        JumpProcess();
-
-        DashProcess();
 
         UpdateAnimation();
     }
@@ -224,6 +231,12 @@ public class Player : CharacterBase
     {
         SetAnimationDirection();
 
+        if (_isDead)
+        {
+            SetState(State.Dead);
+            return;
+        }
+
         if (_isDashing)
         {
             SetState(State.Dash);
@@ -275,6 +288,7 @@ public class Player : CharacterBase
 
     public override void Dead()
     {
+        _isDead = true;
     }
 
     public override void RechargeDash()
