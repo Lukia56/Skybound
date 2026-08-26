@@ -128,10 +128,12 @@ MonoBehaviour:
   _checkGroundBufferDistance: 1
   _maxDashNum: 1
   _dashForce: 700
-  _dashTime: 0.35
+  _dashDuration: 0.35
+  _dashCooldownTime: 0.25
   _isJumping: 0
   _dashCount: 0
   _dashTimer: 0
+  _dashCooldownTimer: 0
   _isDashing: 0
 --- !u!50 &7260044172348026028
 Rigidbody2D:

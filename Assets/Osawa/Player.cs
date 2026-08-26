@@ -27,7 +27,9 @@ public class Player : CharacterBase
     [SerializeField]
     private float _dashForce = 0.0f;
     [SerializeField]
-    private float _dashTime = 0.0f;
+    private float _dashDuration = 0.0f;
+    [SerializeField]
+    private float _dashCooldownTime = 0.0f;
 
     [Header("Member")]
 
@@ -40,6 +42,9 @@ public class Player : CharacterBase
     // ダッシュ終了までのタイマー
     [SerializeField]
     private float _dashTimer = 0.0f;
+
+    [SerializeField]
+    private float _dashCooldownTimer = 0.0f;
 
     [SerializeField]
     private bool _isDashing = false;
@@ -115,13 +120,20 @@ public class Player : CharacterBase
     {
         Vector2 moveDir = _moveInput.ReadValue<Vector2>();
 
-        if (_dashInput.WasPressedThisFrame() && moveDir != Vector2.zero && CanDash())
+        if (_dashCooldownTimer > 0.0f)
+        {
+            _dashCooldownTimer -= Time.deltaTime;
+        }
+
+        if (_dashInput.IsPressed() && moveDir != Vector2.zero && CanDash())
         {
             SetForce(_dashForce, moveDir);
 
             _dashCount--;
 
-            _dashTimer = _dashTime;
+            _dashTimer = _dashDuration;
+            _dashCooldownTimer = _dashCooldownTime;
+
             _isDashing = true;
             _isJumping = false;
 
@@ -154,7 +166,7 @@ public class Player : CharacterBase
 
     private bool CanDash()
     {
-        return _dashCount > 0;
+        return _dashCount > 0 && _dashCooldownTimer <= 0.0f;
     }
 
     public override void Dead()

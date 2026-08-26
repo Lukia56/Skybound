@@ -676,6 +676,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2328179467680529913, guid: 2e2b3e7e98810844ca0acb4bded24487, type: 3}
+      propertyPath: _dashDuration
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328179467680529913, guid: 2e2b3e7e98810844ca0acb4bded24487, type: 3}
+      propertyPath: _dashCooldownTime
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 7534105628654637820, guid: 2e2b3e7e98810844ca0acb4bded24487, type: 3}
       propertyPath: m_Name
       value: Player
