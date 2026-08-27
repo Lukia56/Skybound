@@ -10,7 +10,7 @@ public class Spring :GimmickBase
     /// <summary>
     /// 押す力の倍率を求める際に使う角度に応じた力の倍率
     /// </summary>
-    const float _PLAYER_PUSH_ROTATE_RATIO = 1.5f;
+    const float _PLAYER_PUSH_ROTATE_RATIO = 1.36f;
     /// <summary>
     /// 押す力の倍率を求める際に使う角度の倍率
     /// </summary>
