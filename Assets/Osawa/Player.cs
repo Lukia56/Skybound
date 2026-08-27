@@ -317,6 +317,7 @@ public class Player : CharacterBase
     public override void OnReachGoal()
     {
         _isGoaled = true;
+        _targetVelocity = Vector2.zero;
     }
 
     public override void RechargeDash()
