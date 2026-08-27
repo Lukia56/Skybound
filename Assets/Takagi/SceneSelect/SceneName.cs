@@ -11,7 +11,5 @@ public class SceneName
         "Stage2",
         "Stage3",
         "TakagiStage1",
-        "TakagiStage2",
-        "TakagiStage3",
     };
 }

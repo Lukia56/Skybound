@@ -16,6 +16,11 @@ public class Spring :GimmickBase
     /// </summary>
     const float _CALCULATE_RADIAN_RATIO = 1.2f;
 
+    /// <summary>
+    /// バネのサウンドのID
+    /// </summary>
+    const int _SOUND_ID = 5;
+
  
     public override void ToCharacterAction(CharacterBase character, eHitType hitType)
     {
@@ -45,6 +50,6 @@ public class Spring :GimmickBase
 
 
         Debug.Log("ギミック発動 : バネ | force : " + hitType + " " + forceValue + " | baseAngle " + radian * GimmickMath._TO_DEGREE + " | PushPower : " + pushPower);
+        SoundManager.instance.PlaySE(_SOUND_ID);
     }
-
 }
