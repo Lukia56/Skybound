@@ -13,15 +13,15 @@ public class Puffer:GimmickBase
     /// キャラクターを吹き飛ばす角度
     /// </summary>
     private const float _PUSH_ANGLE_UP = 0.0f;          // 上方向
-    private const float _PUSH_ANGLE_RIGHT = -70.0f;     // 右方向 少し上方向に
-    private const float _PUSH_ANGLE_LEFT = 70.0f;       // 左方向 少し上方向に
+    private const float _PUSH_ANGLE_RIGHT = -80.0f;     // 右方向 少し上方向に
+    private const float _PUSH_ANGLE_LEFT = 80.0f;       // 左方向 少し上方向に
     private const float _PUSH_ANGLE_RIGHTUP = -60.0f;   // 右上方向
     private const float _PUSH_ANGLE_LEFTUP = 60.0f;    // 左上方向
     /// <summary>
     /// キャラクターを吹き飛ばす強さ
     /// </summary>
     private const float _PUSH_POWER_UP = 0.8f;          // 上方向
-    private const float _PUSH_POWER_HOLIZONTAL = 1.7f;  // 水平方向
+    private const float _PUSH_POWER_HOLIZONTAL = 1.8f;  // 水平方向
     private const float _PUSH_POWER_SLANT = 1.5f;       // 斜め方向
 
     /// <summary>
