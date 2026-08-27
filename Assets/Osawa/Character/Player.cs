@@ -250,6 +250,9 @@ public class Player : CharacterBase
     {
         SetAnimationDirection();
 
+        // ダッシュできないときは赤にする
+        _renderer.color = _dashCount <= 0 ? Color.red : Color.white;
+
         if (_isDead)
         {
             SetState(State.Dead);
