@@ -104,6 +104,8 @@ public class Player : CharacterBase
         _animator = GetComponent<Animator>();
 
         _renderer = GetComponent<SpriteRenderer>();
+
+        _dashCount = _maxDashNum;
     }
 
     protected override void FixedUpdate()
