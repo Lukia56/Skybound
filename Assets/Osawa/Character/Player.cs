@@ -136,6 +136,9 @@ public class Player : CharacterBase
 
     private void Update()
     {
+        // ポーズ中は入力処理を行わない
+        if (Mathf.Approximately(Time.timeScale, 0.0f)) return;
+
         if (!_isDead && !_isGoaled)
         {
             Vector2 moveDir = _moveInput.ReadValue<Vector2>();
