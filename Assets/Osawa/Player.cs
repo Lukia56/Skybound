@@ -285,6 +285,9 @@ public class Player : CharacterBase
 
     public override void SetForce(float force, Vector2 normal)
     {
+        // ジャンプを解除する
+        _isJumping = false;
+
         // ダッシュを解除する
         if (_isDashing)
         {

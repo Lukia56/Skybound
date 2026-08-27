@@ -122,7 +122,7 @@ MonoBehaviour:
   _onCeiling: 0
   _useGravity: 1
   _moveForce: 400
-  _jumpForce: 500
+  _jumpForce: 600
   _wallJumpForce: {x: 800, y: 500}
   _minVelocityY: -500
   _jumpCancelThreshold: 100
