@@ -21,7 +21,7 @@ public class Puffer:GimmickBase
     /// キャラクターを吹き飛ばす強さ
     /// </summary>
     private const float _PUSH_POWER_UP = 0.8f;          // 上方向
-    private const float _PUSH_POWER_HOLIZONTAL = 1.5f;  // 水平方向
+    private const float _PUSH_POWER_HOLIZONTAL = 1.7f;  // 水平方向
     private const float _PUSH_POWER_SLANT = 1.5f;       // 斜め方向
 
     /// <summary>
