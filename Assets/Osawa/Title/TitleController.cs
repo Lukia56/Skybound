@@ -8,6 +8,8 @@ public class TitleController : MonoBehaviour
     private void Start()
     {
         _submitInput = InputSystem.actions.FindAction("Submit");
+
+        SoundManager.instance.PlayBGM(0);
     }
 
     private void Update()
@@ -15,6 +17,7 @@ public class TitleController : MonoBehaviour
         if (_submitInput.WasPressedThisFrame())
         {
             StageSceneManager.instance.LoadStage(0);
+            SoundManager.instance.PlayBGM(1);
         }
     }
 }
