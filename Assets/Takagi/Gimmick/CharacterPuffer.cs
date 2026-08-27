@@ -74,7 +74,7 @@ public class CharacterPuffer : CharacterBase
             deleteCount = 0.0f;
         }
         
-        _deleteCount = deleteCount;
+        _deleteCount = Mathf.Clamp(deleteCount,0.0f,_DELETE_COUNT);
 
         UpdatePosition();
     }
