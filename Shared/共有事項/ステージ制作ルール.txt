@@ -1,0 +1,2 @@
+カメラのProjection > Sizeを10
+画面サイズ設定 16:9 Aspect
