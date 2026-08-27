@@ -244,6 +244,12 @@ public class MenuManager : MonoBehaviour
 
         Debug.Log("選択: " + menuItems[index].text);
 
+
+        // 別途作成した関数を実行====
+        Execute(menuItems[index]);
+        // ==========================
+
+
         // Resumeだった場合
         if (menuItems[index] == resumeText)
         {
@@ -347,4 +353,51 @@ public class MenuManager : MonoBehaviour
         // ゲーム再開
         Time.timeScale = 1f;
     }
+
+    // ==========================================
+    // 以下はゲーム組み込みのため緊急で髙木が実装
+    // ==========================================
+
+    /// <summary>
+    /// リスタートテキスト
+    /// </summary>
+    [SerializeField] TMP_Text retryText=null;
+    /// <summary>
+    /// タイトル遷移テキスト
+    /// </summary>
+    [SerializeField] TMP_Text toTitleText=null;
+    /// <summary>
+    /// 項目実行処理
+    /// チームメンバー担当部分の明確化のため別で記述
+    /// </summary>
+    /// <param name="text"></param>
+    private void Execute(TMP_Text text)
+    {
+        // ポーズ解除
+        ResumeGame();
+
+        if (text == retryText)
+        {
+            StageRetry();
+        }
+        else if (text == toTitleText)
+        {
+            ToTitle();
+        }
+    }
+    /// <summary>
+    /// タイトルシーンに遷移
+    /// </summary>
+    private void ToTitle()
+    {
+        StageSceneManager.instance.LoadTitleScene();
+    }
+    /// <summary>
+    /// ステージやり直し
+    /// </summary>
+    private void StageRetry()
+    {
+        StageSceneManager.instance.LoadCurrentStage();
+    }
+
 }
