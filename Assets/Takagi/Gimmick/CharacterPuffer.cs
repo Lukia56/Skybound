@@ -32,10 +32,6 @@ public class CharacterPuffer : CharacterBase
     /// </summary>
     private readonly Vector3 _DELETE_POSITION = Vector3.one * -10000.0f;
 
-    /// <summary>
-    /// 補間の割合
-    /// </summary>
-    [SerializeField] private float _stepLerpRatio = 0.0f;
     [SerializeField] private CollisionCensor _vertilal = null;
     [SerializeField] private CollisionCensor _holizontal = null;
     /// <summary>
