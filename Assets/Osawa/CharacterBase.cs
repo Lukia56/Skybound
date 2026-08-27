@@ -42,6 +42,9 @@ public abstract class CharacterBase : MonoBehaviour
     protected bool _onCeiling = false;
 
     [SerializeField]
+    protected bool _usePhysics = true;
+
+    [SerializeField]
     protected bool _useGravity = true;
 
     private Rigidbody2D _myRigidbody = null;
@@ -53,6 +56,12 @@ public abstract class CharacterBase : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
+        if (!_usePhysics)
+        {
+            _myRigidbody.linearVelocity = Vector2.zero;
+            return;
+        }
+
         _myRigidbody.linearVelocityX = _velocity.x / _myRigidbody.mass * Time.fixedDeltaTime;
         _myRigidbody.linearVelocityY = _velocity.y / _myRigidbody.mass * Time.fixedDeltaTime;
 
