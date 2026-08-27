@@ -3,6 +3,20 @@ using UnityEngine;
 
 public class Gem : GimmickBase
 {
+
+    public override void ToCharacterAction(CharacterBase character, eHitType hitType)
+    {
+        if (hitType == eHitType.Enter)
+        {
+            Debug.Log("ダッシュ回復");
+            character.RechargeDash();
+        }
+    }
+
+    // ======================
+    // 以下は緊急で髙木が記述
+    // ======================
+    private const int _SOUND_ID_GEM_ACTION = 4;
     /// <summary>
     /// 効果を発動したGemのオブジェクト情報
     /// </summary>
@@ -15,18 +29,11 @@ public class Gem : GimmickBase
     /// 今までに効果を発動したGemのリスト
     /// </summary>
     private List<GemObject> _actionGemList = null;
-
-    public override void ToCharacterAction(CharacterBase character, eHitType hitType)
-    {
-        if (hitType == eHitType.Enter)
-        {
-            Debug.Log("ダッシュ回復");
-            character.RechargeDash();
-        }
-    }
     public override void ToObjectAction(GimmickObject gimmickObject, eHitType hitType)
     {
+        if (hitType != eHitType.Enter) return;
         GemReaction(gimmickObject);
+        SoundManager.instance.PlaySE(_SOUND_ID_GEM_ACTION);
     }
 
     private void GemReaction(GimmickObject gimmickObj)

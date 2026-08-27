@@ -54,6 +54,8 @@ public class Puffer:GimmickBase
     /// 削除エフェクトのスケール値
     /// </summary>
     private const float _DEATH_EFFECT_SCALE = 0.2f;
+    private const int _SOUND_ID_PUSH = 5;
+    private const int _SOUND_ID_EXPLOSION = 3;
     /// <summary>
     /// キャラクターに対する挙動
     /// </summary>
@@ -173,7 +175,7 @@ public class Puffer:GimmickBase
     public override void ToObjectAction(GimmickObject gimmickObject, eHitType hitType)
     {
         if (hitType != eHitType.Other) return;
-       
+        SoundManager.instance.PlaySE(_SOUND_ID_PUSH);
         if (_hitDirection == eDirectionFour.Up)
         {
             // 上から踏まれた際は下方向に押す
@@ -185,6 +187,7 @@ public class Puffer:GimmickBase
             DeathEffect();
             // それ以外は爆破処理
             _actionPuffer.Explosion();
+            SoundManager.instance.PlaySE(_SOUND_ID_EXPLOSION);
         }
     }
     private CharacterPuffer GetActionPuffer(GimmickObject gimmickObject)
