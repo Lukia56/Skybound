@@ -47,4 +47,10 @@ MonoBehaviour:
   _soundList:
   - {fileID: 8300000, guid: 7161aa70e2fdc00418eeb3df329c1b23, type: 3}
   - {fileID: 8300000, guid: b5207f7234ebb4b4ebd3392484b601f0, type: 3}
-  _bgmList: []
+  - {fileID: 8300000, guid: 56a2556ac5bba274ba8432482df2b4d3, type: 3}
+  - {fileID: 8300000, guid: 2ccaa0aa983474c4aa8ef93ad27b6429, type: 3}
+  - {fileID: 8300000, guid: 706cf9f1373cd894dbc104a44a11f501, type: 3}
+  - {fileID: 8300000, guid: d563279d28392f74ea1035c389a25357, type: 3}
+  _bgmList:
+  - {fileID: 8300000, guid: bc16e29a5c94008449a8ba0c6e151806, type: 3}
+  - {fileID: 8300000, guid: 596e0f53d0760684897f73aa6d85324a, type: 3}
