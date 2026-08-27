@@ -23,6 +23,10 @@ public class MenuManager : MonoBehaviour
 
     private bool isPaused = false;
 
+    private InputAction upInput;
+    private InputAction downInput;
+    private InputAction submitInput;
+    private InputAction pauseInput;
 
     // Start
     void Start()
@@ -65,6 +69,11 @@ public class MenuManager : MonoBehaviour
 
         // 最初の項目を選択
         SelectItem(0);
+
+        upInput = InputSystem.actions.FindAction("Up");
+        downInput = InputSystem.actions.FindAction("Down");
+        submitInput = InputSystem.actions.FindAction("Submit");
+        pauseInput = InputSystem.actions.FindAction("Pause");
     }
 
 
@@ -79,12 +88,17 @@ public class MenuManager : MonoBehaviour
         // Escape
         // =========================
 
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        //if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (pauseInput.WasPressedThisFrame())
         {
             // ポーズ中でなければポーズ
             if (!isPaused)
             {
                 PauseGame();
+            }
+            else
+            {
+                ResumeGame();
             }
         }
 
@@ -96,7 +110,8 @@ public class MenuManager : MonoBehaviour
         if (isPaused)
         {
             // ↑
-            if (Keyboard.current.upArrowKey.wasPressedThisFrame)
+            //if (Keyboard.current.upArrowKey.wasPressedThisFrame)
+            if (upInput.WasPressedThisFrame())
             {
                 selectedIndex--;
 
@@ -110,7 +125,8 @@ public class MenuManager : MonoBehaviour
 
 
             // ↓
-            if (Keyboard.current.downArrowKey.wasPressedThisFrame)
+            //if (Keyboard.current.downArrowKey.wasPressedThisFrame)
+            if (downInput.WasPressedThisFrame())
             {
                 selectedIndex++;
 
@@ -124,7 +140,8 @@ public class MenuManager : MonoBehaviour
 
 
             // Enter
-            if (Keyboard.current.enterKey.wasPressedThisFrame)
+            //if (Keyboard.current.enterKey.wasPressedThisFrame)
+            if (submitInput.WasPressedThisFrame())
             {
                 ExecuteItem(selectedIndex);
             }
