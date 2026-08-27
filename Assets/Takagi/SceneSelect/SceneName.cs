@@ -10,6 +10,6 @@ public class SceneName
         "Stage1",
         "Stage2",
         "Stage3",
-        "TakagiStage1",
+        "StageHard",
     };
 }
