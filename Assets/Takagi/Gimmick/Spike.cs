@@ -13,11 +13,6 @@ public class Spike:GimmickBase
         if (character == null) return;
         // キャラクターの死亡処理
         character.Dead();
-        if (!character.IsPlayer()) return;
-
-        // キャラクターがプレイヤーなら死亡サウンドを再生
-        // 再生後の処理を渡す
-        SoundManager.instance.PlaySE(_SOUND_ID_SPIKE_ACTION,Restart);
     }
     private void Restart()
     {
