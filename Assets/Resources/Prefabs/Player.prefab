@@ -107,8 +107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7fdfbecb88188b4086d0dc87905fbac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  _accel: 25
-  _gravityScale: 1
+  _accel: 75
+  _gravityScale: 3
   _checkGroundRadius: 0.3
   _checkGroundDistance: 0.25
   _checkCeilingRadius: 0.4
@@ -121,9 +121,9 @@ MonoBehaviour:
   _onGround: 0
   _onCeiling: 0
   _useGravity: 1
-  _moveForce: 200
-  _jumpForce: 300
-  _wallJumpForce: {x: 500, y: 200}
+  _moveForce: 400
+  _jumpForce: 500
+  _wallJumpForce: {x: 800, y: 500}
   _minVelocityY: -500
   _jumpCancelThreshold: 100
   _checkGroundBufferRadius: 0.25
@@ -131,7 +131,7 @@ MonoBehaviour:
   _checkWallRadius: 0.5
   _checkWallDistance: 0
   _maxDashNum: 1
-  _dashForce: 700
+  _dashForce: 1300
   _dashDuration: 0.35
   _dashCooldownTime: 0.25
   _isJumping: 0
