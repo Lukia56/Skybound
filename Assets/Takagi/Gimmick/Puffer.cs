@@ -27,8 +27,7 @@ public class Puffer:GimmickBase
     /// <summary>
     /// 踏みつけた時の力の量
     /// </summary>
-    private const float _STEP_POWER = _PUSH_POWER*0.4f;           
-    
+    private const float _STEP_POWER = _PUSH_POWER*0.4f;
     /// <summary>
     /// キャラクターを押す際のパラメータ
     /// </summary>
@@ -43,6 +42,18 @@ public class Puffer:GimmickBase
     private List<PufferObject> _pufferList;
     private CharacterPuffer _actionPuffer = null;
     private eDirectionFour _hitDirection=eDirectionFour.Invalid;
+    /// <summary>
+    /// 削除時のエフェクト
+    /// </summary>
+    private DeathEffect _deathEffect = null;
+    /// <summary>
+    /// 削除エフェクトのパス
+    /// </summary>
+    private const string _ORIGIN_OBJECT_PATH = "Prefabs/DeathEffect";
+    /// <summary>
+    /// 削除エフェクトのスケール値
+    /// </summary>
+    private const float _DEATH_EFFECT_SCALE = 0.2f;
     /// <summary>
     /// キャラクターに対する挙動
     /// </summary>
@@ -67,11 +78,6 @@ public class Puffer:GimmickBase
         // オブジェクトに対する処理
         ToObjectAction(_gimmickObj, eHitType.Other);
         Debug.Log("ギミック発動 : フグ");
-        if (character.GetComponent<CharacterPuffer>() != null)
-        {
-        Debug.Log("ギミック発動 : フグフグフグフグフグ");
-
-        }
     }
     /// <summary>
     /// 自身と指定座標の角度を求める
@@ -175,10 +181,10 @@ public class Puffer:GimmickBase
         }
         else
         {
+            // 削除エフェクトを生成   
+            DeathEffect();
             // それ以外は爆破処理
             _actionPuffer.Explosion();
-            // 見た目を動作させる
-            _gimmickObj.StartEffect();
         }
     }
     private CharacterPuffer GetActionPuffer(GimmickObject gimmickObject)
@@ -209,5 +215,14 @@ public class Puffer:GimmickBase
         }
         return puffer;
     }
-
+    private void DeathEffect()
+    {
+        if (_deathEffect == null)
+        {
+            _deathEffect = Resources.Load<DeathEffect>(_ORIGIN_OBJECT_PATH);
+        }
+        DeathEffect deathEffect=GameObject.Instantiate<DeathEffect>(_deathEffect, _gimmickObj.transform);
+        deathEffect.gameObject.transform.localScale = Vector3.one * _DEATH_EFFECT_SCALE;
+        deathEffect.gameObject.transform.SetParent(null);
+    }
 }
