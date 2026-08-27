@@ -95,6 +95,9 @@ public class Player : CharacterBase
     [SerializeField]
     private GameObject _deathEffectPrefab = null;
 
+    private const int _DASH_SE_ID = 2;
+    private const int _DEATH_SE_ID = 3;
+
     protected override void Start()
     {
         base.Start();
@@ -207,6 +210,8 @@ public class Player : CharacterBase
             _isJumping = false;
 
             _useGravity = false;
+
+            SoundManager.instance.PlaySE(_DASH_SE_ID);
         }
 
         if (_dashTimer > 0.0f)
@@ -312,6 +317,8 @@ public class Player : CharacterBase
         _renderer.enabled = false;
 
         Instantiate(_deathEffectPrefab, transform);
+
+        SoundManager.instance.PlaySE(_DEATH_SE_ID);
     }
 
     public override void OnReachGoal()
