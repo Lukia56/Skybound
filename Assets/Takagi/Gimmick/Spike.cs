@@ -14,10 +14,4 @@ public class Spike:GimmickBase
         // キャラクターの死亡処理
         character.Dead();
     }
-    private void Restart()
-    {
-        // 同じシーンを再生する
-        StageSceneManager.instance.LoadCurrentStage();
-
-    }
 }

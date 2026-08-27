@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -48,11 +49,14 @@ public class CharacterPuffer : CharacterBase
     /// </summary>
     [SerializeField] private float _pushCount = 0.0f;
     private const float _PUSH_POWER_NORMALIZE = 0.025f;
+    private SpriteRenderer _spriteRenderer = null;
+    
     protected override void Start()
     {
         // 初期座標を取得
         _initPos = transform.position;
         Init();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
     protected override void FixedUpdate()
     {
