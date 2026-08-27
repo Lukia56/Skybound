@@ -7,7 +7,7 @@ public class GimmickBase
     /// <summary>
     /// 吹きとばす強さの基本
     /// </summary>
-    protected const float _PUSH_POWER = 500;
+    protected const float _PUSH_POWER = 830;
 
 
 
