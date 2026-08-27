@@ -146,6 +146,10 @@ public abstract class CharacterBase : MonoBehaviour
         Debug.Log("Character // 死亡処理が呼ばれました");
     }
 
+    public virtual void OnReachGoal()
+    {
+    }
+
     public virtual void RechargeDash()
     {
         Debug.Log("Character // RechargeDash called");

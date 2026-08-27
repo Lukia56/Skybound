@@ -79,6 +79,9 @@ public class Player : CharacterBase
     [SerializeField]
     private bool _isDead = false;
 
+    [SerializeField]
+    private bool _isGoaled = false;
+
     private State _state = State.Idle;
 
     private InputAction _moveInput = null;
@@ -130,7 +133,7 @@ public class Player : CharacterBase
 
     private void Update()
     {
-        if (!_isDead)
+        if (!_isDead && !_isGoaled)
         {
             Vector2 moveDir = _moveInput.ReadValue<Vector2>();
 
@@ -309,6 +312,11 @@ public class Player : CharacterBase
         _renderer.enabled = false;
 
         Instantiate(_deathEffectPrefab, transform);
+    }
+
+    public override void OnReachGoal()
+    {
+        _isGoaled = true;
     }
 
     public override void RechargeDash()
