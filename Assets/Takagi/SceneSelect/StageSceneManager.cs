@@ -50,7 +50,7 @@ public class StageSceneManager
         if (nextStageID < 0 ||
             nextStageID >= SceneName.SCENE_STAGE.Length)
         {
-            LoadStageSelect();
+            LoadTitleScene();
         }
         // 現在のステージIDを更新
         currentStageID = nextStageID;
@@ -68,7 +68,7 @@ public class StageSceneManager
         if (nextStageID < 0 ||
             nextStageID >= SceneName.SCENE_STAGE.Length)
         {
-            LoadStageSelect();
+            LoadTitleScene();
         }
         // 現在のステージIDを更新
         currentStageID = nextStageID;
@@ -84,7 +84,7 @@ public class StageSceneManager
         if (currentStageID < 0 ||
             currentStageID >= SceneName.SCENE_STAGE.Length)
         {
-            LoadStageSelect();
+            LoadTitleScene();
         }
         // ステージを読み込む
         LoadStage(currentStageID);
