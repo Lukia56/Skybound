@@ -1,10 +1,9 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player : CharacterBase
 {
-    enum State
+    private enum State
     {
         Idle,
         Run,
@@ -298,6 +297,8 @@ public class Player : CharacterBase
     public override void Dead()
     {
         _isDead = true;
+
+        _usePhysics = false;
 
         _velocity = Vector2.zero;
         _targetVelocity = Vector2.zero;
