@@ -97,6 +97,12 @@ public class StageSceneManager
         SceneManager.LoadScene(SceneName.SCENE_SELECTSCENE);
         return;
     }
-    
-
+    /// <summary>
+    /// タイトルシーンに遷移
+    /// </summary>
+    public void LoadTitleScene()
+    {
+        SceneManager.LoadScene(SceneName.SCENE_TITLE);
+        return;
+    }
 }
