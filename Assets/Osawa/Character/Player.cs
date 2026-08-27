@@ -318,7 +318,7 @@ public class Player : CharacterBase
 
         Instantiate(_deathEffectPrefab, transform);
 
-        SoundManager.instance.PlaySE(_DEATH_SE_ID);
+        SoundManager.instance.PlaySE(_DEATH_SE_ID, StageSceneManager.instance.LoadCurrentStage);
     }
 
     public override void OnReachGoal()
