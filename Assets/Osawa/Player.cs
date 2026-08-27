@@ -113,7 +113,7 @@ public class Player : CharacterBase
 
         if (_velocity.y < _minVelocityY)
         {
-            _velocity.y = Mathf.MoveTowards(_velocity.y, _minVelocityY, Physics2D.gravity.y);
+            _velocity.y = Mathf.MoveTowards(_velocity.y, _minVelocityY, -Physics2D.gravity.y * _gravityScale);
         }
 
         _onGroundBuffer = CheckGroundBuffer();
