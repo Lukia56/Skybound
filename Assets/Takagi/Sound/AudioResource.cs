@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class AudioResource : MonoBehaviour
@@ -86,7 +87,7 @@ public class AudioResource : MonoBehaviour
             // 再生できたのでreturn
             return;
         } // すべて使用中で再生できなかった時
-        AudioSource audioSource = new AudioSource();
+        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
         // クリップを設定
         audioSource.clip = clip;
         // クリップを再生
