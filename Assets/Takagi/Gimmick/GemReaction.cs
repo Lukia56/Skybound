@@ -32,6 +32,7 @@ public class GemReaction : MonoBehaviour
         {
             Init();
         }
+        _deleteCount = Mathf.Clamp(_deleteCount, 0.0f, _DELETE_MAX_COUNT);
     }
     private void Init()
     {
