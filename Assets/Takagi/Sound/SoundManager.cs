@@ -47,14 +47,14 @@ public class SoundManager
         if (_audioResource == null) return;
         AudioClip audio=_audioResource.GetSound(soundID);
         if (audio == null) return;
-        _audioResource.PlayAudio(audio,action);
+        _audioResource.PlaySound(audio,action);
     }
    public void PlayBGM(int bgmID)
     {
         if (_audioResource == null) return;
         AudioClip audio = _audioResource.GetBGM(bgmID);
         if (audio == null) return;
-        _audioResource.PlayAudio(audio,null);
+        _audioResource.PlayBGM(audio);
     }
    
        

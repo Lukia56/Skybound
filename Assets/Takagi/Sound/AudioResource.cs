@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
@@ -6,10 +7,10 @@ public class AudioResource : MonoBehaviour
 {
     [SerializeField]private AudioClip[] _soundList =null; 
     [SerializeField]private AudioClip[] _bgmList =null;
-    private List<AudioEvent> _audioSource = null;
-
+    private List<SoundEvent> _soundEvent = null;
+    private AudioSource _bgmSource = null;
     private const int _AUDIOSOURCE_INIT_NUM = 5;
-    class AudioEvent
+    class SoundEvent
     {
         public AudioSource source;
         public System.Action actionEvent;
@@ -22,21 +23,30 @@ public class AudioResource : MonoBehaviour
     public void Init(System.Action updateAction)
     {
         _updateAction = updateAction;
-        _audioSource = new List<AudioEvent>(_AUDIOSOURCE_INIT_NUM);
-        for(int i = 0; i < _AUDIOSOURCE_INIT_NUM; i++)
+        _soundEvent = new List<SoundEvent>(_AUDIOSOURCE_INIT_NUM);
+        for (int i = 0; i < _AUDIOSOURCE_INIT_NUM; i++)
         {
-            AudioEvent audioEvent= new AudioEvent();
+            // サウンドの配列を生成
+            SoundEvent audioEvent = new SoundEvent();
             audioEvent.actionEvent = null;
             audioEvent.isPlaying = false;
             audioEvent.source = gameObject.AddComponent<AudioSource>();
-            _audioSource.Add(audioEvent); 
+            _soundEvent.Add(audioEvent);
+
+            // BGMの配列を生成
+
         }
+        // BGMのAudioSource生成
+        AudioSource soundSource = gameObject.AddComponent<AudioSource>();
+        // BGMをループさせる
+        soundSource.loop = true;
+        _bgmSource = soundSource;
     }
     private void Update()
     {
-        for (int i = 0; i < _audioSource.Count; i++)
+        for (int i = 0; i < _soundEvent.Count; i++)
         {
-            AudioEvent audioEvent = _audioSource[i];
+            SoundEvent audioEvent = _soundEvent[i];
             // 前回の再生状態の更新
             bool prevPlay = audioEvent.isPlaying;
             // 今回の再生状態の更新
@@ -47,7 +57,7 @@ public class AudioResource : MonoBehaviour
             {
                 audioEvent.actionEvent();
             }
-            _audioSource[i].isPlaying = _audioSource[i].source.isPlaying;
+            _soundEvent[i].isPlaying = _soundEvent[i].source.isPlaying;
         }
     }
     public AudioClip GetSound(int soundID)
@@ -60,21 +70,21 @@ public class AudioResource : MonoBehaviour
         if(bgmID<0||bgmID>=_bgmList.Length)return null;
         return _bgmList[bgmID];
     }
-    public void PlayAudio(AudioClip clip, System.Action action)
+    public void PlaySound(AudioClip clip, System.Action action)
     {
         if (clip == null) return;
         // 未使用のAudioSourceがあればそれを使う
-        for (int i = 0; i < _audioSource.Count; i++)
+        for (int i = 0; i < _soundEvent.Count; i++)
         {
             // 使用中ならスキップ
-            if (_audioSource[i].source.isPlaying) continue;
-            _audioSource[i].isPlaying=true;
+            if (_soundEvent[i].source.isPlaying) continue;
+            _soundEvent[i].isPlaying=true;
             // 再生終了後の処理を設定
-            _audioSource[i].actionEvent=action;
+            _soundEvent[i].actionEvent=action;
             // クリップを設定
-            _audioSource[i].source.clip = clip;
+            _soundEvent[i].source.clip = clip;
             // 設定したクリップを再生
-            _audioSource[i].source.Play();
+            _soundEvent[i].source.Play();
             // 再生できたのでreturn
             return;
         } // すべて使用中で再生できなかった時
@@ -84,12 +94,21 @@ public class AudioResource : MonoBehaviour
         // クリップを再生
         audioSource.Play();
         // 構造体の生成
-        AudioEvent audioEvent = new AudioEvent();
+        SoundEvent audioEvent = new SoundEvent();
         audioEvent.source = audioSource;
         audioEvent.isPlaying = false;
         audioEvent.actionEvent = action;
         // 生成したAudioSourceを配列に追加
-        _audioSource.Add(audioEvent);
+        _soundEvent.Add(audioEvent);
 
+    }
+    public void PlayBGM(AudioClip clip)
+    {
+        // BGMを停止
+        _bgmSource.Stop();
+        // クリップを更新
+        _bgmSource.clip = clip;
+        // BGM再生
+        _bgmSource.Play();
     }
 }
