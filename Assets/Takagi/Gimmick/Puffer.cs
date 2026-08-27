@@ -27,7 +27,7 @@ public class Puffer:GimmickBase
     /// <summary>
     /// 踏みつけた時の力の量
     /// </summary>
-    private const float _STEP_POWER = _PUSH_POWER*0.6f;           
+    private const float _STEP_POWER = _PUSH_POWER*0.4f;           
     
     /// <summary>
     /// キャラクターを押す際のパラメータ
