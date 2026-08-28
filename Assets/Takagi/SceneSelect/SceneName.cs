@@ -11,6 +11,7 @@ public class SceneName
         "Stage2",
         "Stage3",
         "Stage4",
+        "Stage5",
         "StageHard",
     };
 }
