@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class StageClear : GimmickBase
@@ -8,6 +9,9 @@ public class StageClear : GimmickBase
         if (hitType != eHitType.Enter) return;
         // プレイヤーの入力操作を受け付けないようにする
         character.OnReachGoal();
+
+        // UIの入力をオフにする
+        InputSystem.actions.FindActionMap("UI").Disable();
     }
     public override void OtherAction(eHitType hitType)
     {
@@ -16,6 +20,10 @@ public class StageClear : GimmickBase
     }
     public void Clear()
     {
+        // UIの入力をオンにする
+        InputSystem.actions.FindActionMap("UI").Enable();
+
+        // シーン遷移
         StageSceneManager.instance.LoadNextStage();
     }
 }
