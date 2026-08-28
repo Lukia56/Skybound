@@ -1,12 +1,19 @@
-using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class StageClear : GimmickBase
 {
+    private const int _SOUND_ID_STAGECLEAR = 1;
+    /// <summary>
+    /// キャラクターと接初期したときの処理
+    /// </summary>
+    /// <param name="character"></param>
+    /// <param name="hitType"></param>
     public override void ToCharacterAction(CharacterBase character, eHitType hitType)
     {
         if (hitType != eHitType.Enter) return;
+        // プレイヤーでなければ処理しない
+        if (!character.IsPlayer()) return;
+
         // プレイヤーの入力操作を受け付けないようにする
         character.OnReachGoal();
 
@@ -15,9 +22,14 @@ public class StageClear : GimmickBase
     }
     public override void OtherAction(eHitType hitType)
     {
+        // 接触した瞬間のみ処理する
         if (hitType != eHitType.Enter) return;
-        SoundManager.instance.PlaySE(1, Clear);
+        // ステージクリアのサウンド再生
+        SoundManager.instance.PlaySE(_SOUND_ID_STAGECLEAR, Clear);
     }
+    /// <summary>
+    /// ステージクリア処理
+    /// </summary>
     public void Clear()
     {
         // UIの入力をオンにする
