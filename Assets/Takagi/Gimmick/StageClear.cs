@@ -4,7 +4,7 @@ public class StageClear : GimmickBase
 {
     private const int _SOUND_ID_STAGECLEAR = 1;
     /// <summary>
-    /// キャラクターと接初期したときの処理
+    /// キャラクターに対する処理
     /// </summary>
     /// <param name="character"></param>
     /// <param name="hitType"></param>
@@ -20,11 +20,15 @@ public class StageClear : GimmickBase
         // UIの入力をオフにする
         InputSystem.actions.FindActionMap("UI").Disable();
     }
+    /// <summary>
+    /// その他の処理
+    /// </summary>
+    /// <param name="hitType"></param>
     public override void OtherAction(eHitType hitType)
     {
         // 接触した瞬間のみ処理する
         if (hitType != eHitType.Enter) return;
-        // ステージクリアのサウンド再生
+        // ステージクリアのサウンド再生 : ステージクリア処理を引数として渡す
         SoundManager.instance.PlaySE(_SOUND_ID_STAGECLEAR, Clear);
     }
     /// <summary>
