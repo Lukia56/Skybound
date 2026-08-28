@@ -143,6 +143,7 @@ MonoBehaviour:
   _onWall: 0
   _wallDir: 0
   _isDead: 0
+  _isGoaled: 0
   _deathEffectPrefab: {fileID: 93286183013044112, guid: d67b9ad86bd3b484cb54ff52336ee573, type: 3}
 --- !u!50 &7260044172348026028
 Rigidbody2D:
@@ -168,8 +169,8 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!70 &4625229239565614070
 CapsuleCollider2D:
