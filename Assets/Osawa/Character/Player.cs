@@ -82,8 +82,6 @@ public class Player : CharacterBase
     [SerializeField]
     private bool _isGoaled = false;
 
-    private State _state = State.Idle;
-
     private InputAction _moveInput = null;
     private InputAction _jumpInput = null;
     private InputAction _dashInput = null;
@@ -349,7 +347,6 @@ public class Player : CharacterBase
 
     private void SetState(State state)
     {
-        _state = state;
         _animator.SetInteger("State", (int)state);
     }
 
